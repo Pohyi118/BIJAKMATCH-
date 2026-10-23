@@ -6,6 +6,7 @@
     "start": "npm --prefix src/server install && node --env-file-if-exists=.env src/server/server.mjs",
     "proof": "node --env-file=.env scripts/runpod_proof.mjs",
     "agent": "npm --prefix src/agent install && node --env-file-if-exists=.env src/agent/agent.mjs dev",
+    "build": "node scripts/build_site.mjs",
     "test": "node --test tests/scoring.test.mjs tests/runpod.test.mjs tests/runpodllm.test.mjs tests/backend.test.mjs && python -m unittest discover -s tests -p test_handler.py"
   }
 }

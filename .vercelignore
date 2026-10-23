@@ -1,0 +1,10 @@
+.git
+node_modules
+**/node_modules
+.env
+.env.*
+/runpod
+/tests
+/submission
+/src/server
+/src/agent
