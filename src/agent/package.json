@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --env-file-if-exists=../.env agent.mjs dev",
-    "start": "node --env-file-if-exists=../.env agent.mjs start",
-    "download-files": "node --env-file-if-exists=../.env agent.mjs download-files"
+    "dev": "node --env-file-if-exists=../../.env agent.mjs dev",
+    "start": "node --env-file-if-exists=../../.env agent.mjs start",
+    "download-files": "node --env-file-if-exists=../../.env agent.mjs download-files"
   },
   "dependencies": {
     "@livekit/agents": "^1.9.3",

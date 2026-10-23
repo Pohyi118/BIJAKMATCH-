@@ -369,7 +369,7 @@ Your reference uses soft, painterly illustrations. There are three ways to get t
   site/
     index.html          app shell and all screens
     styles.css          tokens, shell, components
-    app.js              state, routing, rendering
+    app-*.js            state, engine, views, routing (split by concern)
     engine.js           scoring, exposure, path ranking, plan sizing (pure functions)
     scene.js            living landscape and character (SVG and animation)
     data/*.js           sample personas, tasks, roles, courses, sources

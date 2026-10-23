@@ -295,3 +295,7 @@ a{color:var(--forest)}
   .intro-steps{grid-template-columns:minmax(0,1fr)}
   .intro-steps a{border-left:0}
 }
+
+/* real-photo avatar (Ahmad): round crop, same width rules as the drawn avatar */
+.avatar--photo{aspect-ratio:1;height:auto;object-fit:cover;object-position:50% 20%;border-radius:50%;border:3px solid var(--paper);box-shadow:var(--e1,0 1px 4px rgba(0,0,0,.15))}
+.who .avatar--photo{width:34px;height:34px}

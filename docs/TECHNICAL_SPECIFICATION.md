@@ -38,12 +38,12 @@ Malaysia has over 600,000 Technical and Vocational Education and Training (TVET)
 │  - JOBS Dictionary & AI Exposure    - TASKCARDS Taxonomy (15 units)    │
 │  - CERTS Whitelist Registry         - PATHS Definitions (Stay/Evolve)  │
 │  - COURSES Catalogue (4 Tiers)      - SNAPSHOTS (2025-01, 2025-09...)  │
-│  - SUBSIDIES & SDG Fit Mappings     - SAMPLE Profiles (Ahmad, Siti...) │
+│  - SUBSIDIES & SDG Fit Mappings     - SAMPLE Profile (Ahmad)             │
 └────────────────────────────────────┬───────────────────────────────────┘
                                      │
                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│                     CORE LOGIC ENGINES (app.js)                        │
+│                     CORE LOGIC ENGINES (app-engine.js)                 │
 │                                                                        │
 │  ┌───────────────────────┐  ┌───────────────────────────────────────┐  │
 │  │ 3-Track Derivation    │  │ 4-Part Match Scoring & Window Score   │  │

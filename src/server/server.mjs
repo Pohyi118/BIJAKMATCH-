@@ -13,9 +13,11 @@ import { AccessToken, RoomAgentDispatch, RoomConfiguration } from "livekit-serve
 import { marketReport } from "./market.mjs";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
+import { createRequire } from "node:module";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.resolve(here, "../site");
+const { experienceLevel } = createRequire(import.meta.url)("../site/shared/scoring.js");
 const PORT = +process.env.PORT || 5050;
 const MODEL = "claude-opus-5-5";
 const LIVE_AGENT = "bijak-skill-check"; // must match AGENT_NAME in agent/agent.mjs
@@ -328,7 +330,7 @@ async function interviewTurn(history) {
   }));
   const ex = out.experience;
   ex.score = Math.max(0, Math.min(100, ex.score));
-  if (!LEVELS.includes(ex.level)) ex.level = ex.score >= 80 ? "Expert" : ex.score >= 55 ? "Experienced" : ex.score >= 30 ? "Developing" : "Beginner";
+  if (!LEVELS.includes(ex.level)) ex.level = experienceLevel(ex.score);
   return out;
 }
 

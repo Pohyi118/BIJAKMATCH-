@@ -18,7 +18,10 @@ const BM = (() => {
   const SUIT = { blue: "#2F6CC8", forest: "#1E5A3A", clay: "#D2694D", sky: "#4F74C8", leaf: "#2C7A4F" };
   const HAT = "#F2C230", HAT_EDGE = "#D9A21C", HAIR = "#1E2328", MOUTH = "#5A2E1E", BROW = "#3A2A20";
 
-  function avatarSVG({ skin = SKIN.a, suit = SUIT.blue, hijab = null, cls = "", arm = false, hat = true, tool = null } = {}) {
+  // a real photo replaces the drawn head-and-shoulders; if the file is missing the drawing is used
+  function photoFail(img) { img.outerHTML = avatarSVG({ cls: img.dataset.cls }); }
+  function avatarSVG({ skin = SKIN.a, suit = SUIT.blue, hijab = null, cls = "", arm = false, hat = true, tool = null, photo = null } = {}) {
+    if (photo) return `<img class="avatar avatar--photo ${cls}" src="${photo}" alt="Ahmad, production technician" data-cls="${cls}" onerror="BM.photoFail(this)">`;
     const tools = {
       tablet: `<rect x="74" y="104" width="22" height="28" rx="3" fill="#1F2A24"/><rect x="77" y="108" width="16" height="18" rx="1.5" fill="#7BAE5E"/>`,
       panel: `<path d="M70 108 l26 -4 v20 l-26 4z" fill="#3E6CB8"/><path d="M70 115 l26 -4 M70 122 l26 -4 M79 106 v20 M88 105 v20" stroke="#DCE6F6" stroke-width="1"/>`,
@@ -49,12 +52,7 @@ const BM = (() => {
 
   // one sample dataset for every page
   const PEOPLE = [
-    { id: "ahmad", n: "Ahmad", job: "tech", r: "Production technician, Penang", s: "Line may automate by 2028", a: { skin: SKIN.a, suit: SUIT.blue }, bg: "#DCE6F6", hours: 4, budget: 100, wage: 2800, goal: "income", certs: ["SKM Level 2, electrical"], hrdLevy: true, lastWork: { "Wiring, SKM Level 2": ">1y", "Multimeter testing": ">1y", "Reading drawings": ">1y", "Safety isolation": "recent" } },
-    { id: "siti", n: "Siti", job: "qc", r: "QC inspector, Kulim", s: "Vision cameras now check parts", a: { skin: SKIN.b, suit: SUIT.forest, hijab: "#7BAE5E" }, bg: "#DCEBD2", hours: 6, budget: 50, wage: 2400, goal: "quick", certs: ["HRD Corp short course: Electrical Safety"], hrdLevy: true, lastWork: { "Safety isolation": "recent" } },
-    { id: "raj", n: "Raj", job: "elec", r: "Maintenance electrician, Johor", s: "Wants a licence upgrade", a: { skin: SKIN.c, suit: SUIT.clay }, bg: "#F7DDD4", hours: 5, budget: 200, wage: 3400, goal: "income", certs: ["SKM Level 3, electrical"], hrdLevy: true, lastWork: { "Safety isolation": "recent", "PLC basics": "recent", "Wiring, SKM Level 2": "recent", "Fault diagnosis": "recent" } },
-    { id: "meiling", n: "Mei Ling", job: "student", r: "TVET student, Ipoh", s: "Choosing her first job", a: { skin: SKIN.d, suit: SUIT.sky, hat: false }, bg: "#FBEDB8", hours: 10, budget: 0, wage: 1800, goal: "income", certs: [], hrdLevy: false, lastWork: {} },
-    { id: "faiz", n: "Faiz", job: "fork", r: "Forklift operator, Shah Alam", s: "Warehouse adding robots", a: { skin: SKIN.e, suit: SUIT.leaf }, bg: "#DCEBD2", hours: 3, budget: 50, wage: 2200, goal: "quick", certs: ["Forklift operator permit"], hrdLevy: true, lastWork: { "Forklift safe handling": "recent", "Equipment start-up check": "recent" } },
-    { id: "nurul", n: "Nurul", job: "admin", r: "Admin clerk, Kuching", s: "Data entry going digital", a: { skin: SKIN.f, suit: SUIT.sky, hijab: "#D2694D", hat: false }, bg: "#DCE6F6", hours: 4, budget: 100, wage: 2100, goal: "quick", certs: [], hrdLevy: false, lastWork: {} }
+    { id: "ahmad", n: "Ahmad", job: "tech", r: "Production technician, Penang", s: "Line may automate by 2028", a: { skin: SKIN.a, suit: SUIT.blue, photo: "photos/people/ahmad.jpg" }, bg: "#DCE6F6", hours: 4, budget: 100, wage: 2800, goal: "income", certs: ["SKM Level 2, electrical"], hrdLevy: true, lastWork: { "Wiring, SKM Level 2": ">1y", "Multimeter testing": ">1y", "Reading drawings": ">1y", "Safety isolation": "recent" } },
   ];
 
   function qrSVG(text, size = 130) {
@@ -121,5 +119,5 @@ const BM = (() => {
 
   const LOGO = `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#1E5A3A"/><path d="M9 21c0-7 5-11 14-12-1 9-5 14-12 14" fill="#7BAE5E"/><path d="M10 23c3-4 6-7 10-10" stroke="#F2C230" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`;
 
-  return { T, EASE, still, setPaused, isPaused, avatarSVG, PEOPLE, SKIN, SUIT, LOGO, qrSVG };
+  return { T, EASE, still, setPaused, isPaused, avatarSVG, photoFail, PEOPLE, SKIN, SUIT, LOGO, qrSVG };
 })();
