@@ -204,6 +204,8 @@ python runpod/train/train.py --out /runpod-volume/models/taskcards
 4. Training prints the validation score for the trained model **and** for the keyword matcher the app uses today, and saves both in `metrics.json` next to the model. Stop the Pod when it finishes so it stops costing credits.
 5. The Serverless endpoint mounts the same volume. Send `{"input": {"classify": ["I lock out the breaker first"]}}` to get the matching task cards.
 
+**Proof of use:** `npm run proof` calls RunPod live and saves a timestamped record (request ids, token usage, timings) in [`docs/runpod-proof/`](docs/runpod-proof/README.md); the same folder holds the console screenshots and the training log. It writes nothing unless a real call succeeds.
+
 **Honest status:** the dataset is 85 answers (67 train, 18 validation): the scripted interviews plus hand-written English and Bahasa Malaysia lines. On those 18 validation answers the existing keyword matcher scores micro-F1 0.57. That number only shows the pipeline works; real accuracy needs real, consented worker answers. The classifier is not wired into scoring yet. A natural use is a deterministic cross-check on the interview model's task extraction. The training script has not been run on a GPU yet, and the speech endpoint and GLM path have been tested only against a fake server.
 
 📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
