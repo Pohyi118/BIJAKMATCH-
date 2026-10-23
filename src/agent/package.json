@@ -1,6 +1,7 @@
 {
   "name": "bijakmatch-voice-agent",
   "private": true,
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "dev": "node --env-file-if-exists=../../.env agent.mjs dev",
