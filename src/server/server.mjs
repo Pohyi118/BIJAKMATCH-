@@ -11,6 +11,7 @@ import crypto from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import { AccessToken, RoomAgentDispatch, RoomConfiguration } from "livekit-server-sdk";
 import { marketReport } from "./market.mjs";
+import { runpodConfigured, transcribe } from "./runpod.mjs";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 import { createRequire } from "node:module";
@@ -442,7 +443,8 @@ http.createServer(async (req, res) => {
       model: MODEL,
       anthropicConfigured: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN),
       livekitConfigured: Boolean(process.env.LIVEKIT_URL && process.env.LIVEKIT_API_KEY && process.env.LIVEKIT_API_SECRET),
-      endpoints: ["/api/interview", "/api/market", "/api/livekit/token", "/api/cert/verify", "/api/health"],
+      runpodConfigured: runpodConfigured(),
+      endpoints: ["/api/interview", "/api/market", "/api/livekit/token", "/api/cert/verify", "/api/transcribe", "/api/health"],
       serverTime: new Date().toISOString()
     });
   }
@@ -454,6 +456,17 @@ http.createServer(async (req, res) => {
     } catch (err) {
       console.error("cert verify error:", err.message);
       send(res, 500, { error: err.message });
+    }
+    return;
+  }
+  if (req.url.startsWith("/api/transcribe")) {
+    if (req.method !== "POST") return send(res, 405, { error: "POST only" });
+    try {
+      const { audio_base64, format, language } = await readJson(req, 12_000_000);
+      send(res, 200, await transcribe({ audioBase64: audio_base64, format, language: language ?? null }));
+    } catch (err) {
+      console.error("transcribe error:", err.message);
+      send(res, err.status || 500, { error: err.message });
     }
     return;
   }
@@ -475,4 +488,5 @@ http.createServer(async (req, res) => {
     console.log("No ANTHROPIC_API_KEY set: the AI interviewer is off and the page will use the offline interviewer.");
   }
   if (!process.env.LIVEKIT_URL) console.log("No LIVEKIT_URL set: the live skill check call is off.");
+  if (!runpodConfigured()) console.log("No RUNPOD_API_KEY / RUNPOD_ENDPOINT_ID set: GPU speech-to-text (/api/transcribe) is off.");
 });

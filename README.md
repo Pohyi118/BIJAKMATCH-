@@ -30,7 +30,7 @@
 | GitHub Repository | https://github.com/Pohyi118/BIJAKMATCH-        |
 | Replit Project    | TODO                                           |
 | Live Demo         | TODO                                           |
-| RunPod Endpoint   | TODO (not integrated yet, see below)           |
+| RunPod Endpoint   | TODO (created from your RunPod account, see below) |
 | Slide Deck        | TODO                                           |
 | Demo Video        | TODO                                           |
 
@@ -62,7 +62,7 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 | Backend       | Node.js (`node:http`), Zod (`src/server`)               |
 | Database      | None; worker state stays in the browser (localStorage)  |
 | AI / Compute  | Anthropic Claude API, LiveKit Cloud voice agent (Deepgram STT, Cartesia TTS) |
-| Hosting / Dev | Replit (run config in `.replit`); RunPod: see below     |
+| Hosting / Dev | Replit (run config in `.replit`); RunPod GPU speech-to-text |
 
 ---
 
@@ -77,7 +77,9 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 │   ├── design-system/           # Design tokens
 │   └── archive/                 # Earlier vision doc and prototypes
 ├── runpod/
-│   └── handler.py           # RunPod serverless handler (organiser template stub)
+│   ├── handler.py           # RunPod serverless handler: Whisper speech-to-text
+│   ├── Dockerfile           # Worker image for the endpoint
+│   └── requirements.txt     # Worker dependencies
 ├── src/
 │   ├── site/                # Web app (index.html, app-*.js, shared/ scoring rules)
 │   ├── server/              # Node API: interview, market, certificate check, LiveKit token
@@ -88,7 +90,8 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 │   ├── SDC2026_TeamName_Replit_POU.pdf       # Replit proof of use
 │   └── SDC2026_TeamName_Runpod_POU.pdf       # RunPod proof of use
 ├── tests/
-│   └── scoring.test.mjs     # Scoring regression tests
+│   ├── scoring.test.mjs     # Scoring regression tests
+│   └── runpod.test.mjs      # RunPod client tests (fake network)
 ├── .env.example             # Example environment variables
 ├── .gitignore
 ├── .replit                  # Replit run configuration
@@ -160,7 +163,28 @@ TODO: describe how the team used Replit (development, hosting, secrets). Only wr
 
 ## How We Use RunPod *(Required)*
 
-**Status: not integrated yet.** `runpod/handler.py` is the organiser's echo stub. All AI today runs through the Anthropic API and LiveKit Cloud. TODO: decide which workload moves to a RunPod GPU endpoint (for example work-video frame analysis) and document it here.
+**Workload:** GPU speech-to-text. Workers answer the interview by voice in English, Bahasa Malaysia or a mix, and browser speech input handles Malay poorly. `runpod/handler.py` runs Whisper (`faster-whisper`, `large-v3`) on a RunPod GPU and returns the transcript with timestamps.
+
+**Connection:** the Replit app (`src/server`) is the only thing that talks to RunPod, so the key never reaches the browser.
+
+```
+Browser ──audio──► POST /api/transcribe (Replit, src/server/runpod.mjs) ──► RunPod Serverless Endpoint (Whisper, GPU)
+        ◄─transcript─────────────────────────────────────────────────────────────────┘
+```
+
+**Status:** the handler, Dockerfile, server route (`/api/transcribe`) and tests are in the repo. The endpoint itself is created from your own RunPod account, and the interview screen does not call `/api/transcribe` yet.
+
+**Set up the endpoint:**
+
+1. Build and push the worker image: `docker build -t <dockerhub-user>/bijakmatch-stt:1 runpod/` then `docker push <dockerhub-user>/bijakmatch-stt:1`.
+2. In RunPod: **Serverless → New Endpoint**, choose that image, pick a GPU with 16 GB or more, set active workers to 0 and max workers to 1.
+3. Copy the endpoint ID and create an API key (Settings → API Keys).
+4. Add `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID` to Replit Secrets (or `.env` locally) and restart.
+5. Check `GET /api/health` shows `"runpodConfigured": true`, then try it:
+
+```bash
+curl -X POST http://localhost:5050/api/transcribe   -H "Content-Type: application/json"   -d '{"audio_base64": "<base64 of a short .webm clip>", "format": "webm", "language": "ms"}'
+```
 
 📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
 
@@ -185,7 +209,7 @@ TODO: describe how the team used Replit (development, hosting, secrets). Only wr
 - [ ] Fairness checks: input allowlist and gender counterfactual tests in CI
 - [ ] Server-side `/api/score` and an audit log
 - [ ] Bahasa Malaysia interview and UI
-- [ ] A real RunPod workload
+- [ ] Call `/api/transcribe` from the interview screen (upload or record a voice answer)
 
 ## Team
 
