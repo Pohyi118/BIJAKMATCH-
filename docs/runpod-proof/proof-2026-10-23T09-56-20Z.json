@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-10-23T09:56:20.956Z",
+  "script": "scripts/runpod_proof.mjs",
+  "checks": [
+    {
+      "name": "GLM-5.3 chat completion (RunPod public endpoint)",
+      "ok": true,
+      "ms": 3558,
+      "model": "zai-org/GLM-5.3",
+      "request_id": "chatcmpl-01a16830-9e95-76e2-9d67-6ca6e16cd076",
+      "usage": {
+        "completion_tokens": 42,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "total_tokens": 69
+      },
+      "answer_preview": "A QC (Quality Control) inspector in a Malaysian factory checks raw materials, in-process goods, and finished products against established standards and specific"
+    },
+    {
+      "name": "Serverless endpoint checks",
+      "ok": false,
+      "skipped": true,
+      "error": "RUNPOD_ENDPOINT_ID is not set"
+    }
+  ]
+}
