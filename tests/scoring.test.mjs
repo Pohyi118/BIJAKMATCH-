@@ -22,8 +22,8 @@ function inert() {
   });
 }
 
-function loadApp() {
-  const store = {};
+function loadApp(initialStore = {}) {
+  const store = { ...initialStore };
   const win = {
     localStorage: { getItem: k => store[k] ?? null, setItem: (k, v) => { store[k] = v; }, removeItem() {} },
     location: { hash: "#home", href: "http://x/", origin: "http://x", protocol: "http:", search: "" },
@@ -88,4 +88,13 @@ test("score bands and experience levels come from the rules file", async () => {
   assert.equal(experienceLevel(55), "Experienced");
   assert.equal(experienceLevel(30), "Developing");
   assert.equal(experienceLevel(0), "Beginner");
+});
+
+test("a browser that saved a removed sample person (Faiz) loads as Ahmad", () => {
+  const saved = JSON.parse(vm.runInContext("JSON.stringify(S)", loadApp()));
+  const ctx = loadApp({ "bm-state-v2": JSON.stringify({ ...saved, person: "faiz", name: "Faiz", job: "fork" }) });
+  assert.equal(vm.runInContext("S.person", ctx), "ahmad");
+  assert.equal(vm.runInContext("S.name", ctx), "Ahmad");
+  assert.equal(vm.runInContext("S.job", ctx), "fork", "other saved answers are kept");
+  assert.ok(!vm.runInContext("V.profile()", ctx).includes("Faiz"));
 });

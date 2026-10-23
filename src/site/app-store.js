@@ -8,6 +8,12 @@ try {
 if (!S || S.v !== 2) {
   S = fresh("ahmad", true);
 }
+// Sample people other than Ahmad were removed; a browser that saved one of them (Faiz, Siti, ...) falls back to Ahmad.
+const REMOVED_PEOPLE = { siti: "Siti", raj: "Raj", meiling: "Mei Ling", faiz: "Faiz", nurul: "Nurul" };
+if (!BM.PEOPLE.some(p => p.id === S.person)) {
+  if (S.name === REMOVED_PEOPLE[S.person]) S.name = BM.PEOPLE[0].n;
+  S.person = BM.PEOPLE[0].id;
+}
 if (!S.done) S.done = {};
 if (S.done.time === undefined) S.done.time = Boolean(S.done.profile);
 if (!S.tab) S.tab = {};
@@ -32,7 +38,7 @@ S.ai.pending = false;
 if (!S.live) S.live = freshLive();
 if (S.market && S.market.loading) S.market = { ...S.market, loading: false, error: "The page was reloaded during the analysis. Run it again." };
 if (S.live.status === "live" || S.live.status === "connecting") S.live.status = Object.keys(S.live.results).length ? "done" : "idle";
-if (!S.wage) S.wage = (person() && person().wage) || 2800;
+if (!S.wage) S.wage = BM.PEOPLE.find(p => p.id === S.person)?.wage || 2800;
 
 const save = () => {
   try {
