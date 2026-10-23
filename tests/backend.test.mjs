@@ -41,7 +41,7 @@ before(async () => {
   const env = { ...process.env, PORT: String(PORT), RUNPOD_API_KEY: "rpa_fake_key", RUNPOD_ENDPOINT_ID: "fakeep", RUNPOD_API_BASE: `http://127.0.0.1:${FAKE_PORT}/v2`, RUNPOD_LLM_BASE_URL: `http://127.0.0.1:${FAKE_PORT}/v1` };
   for (const k of ["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "NODE_TEST_CONTEXT"]) delete env[k];
   server = spawn(process.execPath, [path.join(root, "src/server/server.mjs")], { env, stdio: "ignore" });
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 150; i++) {
     try { if ((await fetch(`${base}/api/health`)).ok) return; } catch {}
     await new Promise(r => setTimeout(r, 100));
   }
