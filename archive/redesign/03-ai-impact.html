@@ -1,0 +1,643 @@
+<title>ReRole Green AI Impact</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: step bar; question headline; a week bar summary; one "waterline" chart where each task is a column of land and
+   rising AI capability is the sea; then the task-by-task table. Same tokens as pages 1 and 2, plus water and shore. */
+:root {
+  --bg: #F3F5F7;
+  --surface: #FFFFFF;
+  --ink: #15202B;
+  --muted: #566372;
+  --line: #D6DDE4;
+  --earth: #2A7A4B;
+  --earth-soft: #E1F0E6;
+  --l1: #C4303A;
+  --l2: #D99A00;
+  --l3: #2453C4;
+  --water: rgba(36, 83, 196, 0.30);
+  --water-edge: #2453C4;
+  --shore: #F4ECD8;
+  --assist: #9A6A00;
+  --assist-soft: #FBF1D8;
+  --auto: #2453C4;
+  --auto-soft: #E3EAFA;
+
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E141A; --surface: #17202A; --ink: #E8EDF2; --muted: #9AA7B4; --line: #2A3541;
+    --earth: #5CC28A; --earth-soft: #183326;
+    --l1: #F2737B; --l2: #F3C447; --l3: #7D9CF2;
+    --water: rgba(125, 156, 242, 0.32); --water-edge: #7D9CF2; --shore: #2A2618;
+    --assist: #F3C447; --assist-soft: #33291A; --auto: #9DB5F5; --auto-soft: #1E2944;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E141A; --surface: #17202A; --ink: #E8EDF2; --muted: #9AA7B4; --line: #2A3541;
+  --earth: #5CC28A; --earth-soft: #183326;
+  --l1: #F2737B; --l2: #F3C447; --l3: #7D9CF2;
+  --water: rgba(125, 156, 242, 0.32); --water-edge: #7D9CF2; --shore: #2A2618;
+  --assist: #F3C447; --assist-soft: #33291A; --auto: #9DB5F5; --auto-soft: #1E2944;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 17px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--l3); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1180px; margin: 0 auto; }
+
+/* ---------- top ---------- */
+.top { display: flex; align-items: center; gap: 24px; padding-block: 18px; }
+.logo { display: flex; align-items: center; gap: 10px; font: 800 1.1rem/1 var(--display); font-stretch: 112%; }
+.logo svg { width: 26px; height: 26px; }
+.who { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+.who .av { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--earth); color: var(--surface); font-weight: 700; }
+.who span { color: var(--muted); }
+.steps { display: flex; gap: 6px; padding-block: 8px 28px; overflow-x: auto; }
+.step { flex: 1 0 auto; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
+.step b { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; border: 2px solid var(--line); }
+.step.done b { background: var(--earth); border-color: var(--earth); color: var(--surface); }
+.step.now { background: var(--surface); color: var(--ink); font-weight: 700; box-shadow: inset 0 0 0 2px var(--ink); }
+.step.now b { border-color: var(--ink); }
+
+.head h1 { font: 850 clamp(2rem, 3.6vw, 3rem)/1.05 var(--display); font-stretch: 116%; letter-spacing: -0.02em; text-wrap: balance; }
+.head p { margin-top: 12px; color: var(--muted); max-width: 42em; font-size: 1.08rem; }
+
+/* ---------- controls ---------- */
+.controls { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: flex-start; }
+.control { display: grid; gap: 8px; justify-items: start; }
+.zones-key { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.9rem; font-weight: 700; }
+.zones-key span { display: inline-flex; align-items: center; gap: 8px; }
+.zones-key i { width: 22px; height: 14px; border-radius: 3px; }
+.zones-key .land i { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
+.zones-key .sand i { background: var(--shore); }
+.zones-key .sea i { background: var(--water); box-shadow: inset 0 2px 0 var(--water-edge); }
+.mini { font-weight: 700; }
+.control-label { font-size: 0.88rem; font-weight: 700; color: var(--muted); }
+.seg { display: inline-flex; padding: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.seg button { min-height: 42px; padding: 0 16px; border: 0; border-radius: 9px; background: none; cursor: pointer; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
+.seg-hint { font-size: 0.85rem; color: var(--muted); max-width: 30em; }
+.estimate { margin-top: 16px; font-size: 0.9rem; color: var(--muted); }
+.estimate b { color: var(--ink); }
+
+/* ---------- week bar ---------- */
+.week { margin-top: 36px; padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+.week h2 { font: 800 1.15rem/1.3 var(--display); font-stretch: 110%; }
+.weekbar { margin-top: 14px; display: flex; height: 44px; border-radius: 10px; overflow: hidden; }
+.weekbar span { display: flex; align-items: center; padding-left: 12px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; overflow: hidden; transition: flex-grow 0.4s ease; }
+.weekbar .human { background: var(--earth); color: var(--surface); }
+.weekbar .assist { background: var(--assist-soft); color: var(--assist); box-shadow: inset 0 0 0 2px var(--assist); }
+.weekbar .auto { background: var(--auto-soft); color: var(--auto); background-image: repeating-linear-gradient(135deg, transparent 0 6px, var(--water) 6px 8px); }
+.legend { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 0.92rem; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 14px; border-radius: 4px; }
+.legend .human i { background: var(--earth); }
+.legend .assist i { background: var(--assist-soft); box-shadow: inset 0 0 0 2px var(--assist); }
+.legend .auto i { background: var(--auto-soft); background-image: repeating-linear-gradient(135deg, transparent 0 3px, var(--water-edge) 3px 4px); }
+.legend b { font-variant-numeric: tabular-nums; }
+.changes { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.95rem; }
+.changes li + li { margin-top: 4px; }
+
+/* ---------- waterline chart (the bold element) ---------- */
+.chart-wrap { margin-top: 36px; }
+.chart-wrap h2, .tasks h2, .meaning h2 { font: 850 clamp(1.4rem, 2.4vw, 1.8rem)/1.15 var(--display); font-stretch: 114%; text-wrap: balance; }
+.chart-wrap > p { margin-top: 6px; color: var(--muted); max-width: 44em; }
+.chart-scroll { margin-top: 18px; overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 12px 8px; }
+.chart-scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.col { transform-box: fill-box; transform-origin: bottom; transition: transform 0.5s ease; }
+.zone-label { font: 700 12px var(--body); }
+.tick { font: 400 12px var(--body); fill: var(--muted); }
+.col-label { font: 400 12px var(--body); fill: var(--ink); }
+.col-btn { cursor: pointer; }
+.col-btn:focus-visible { outline: none; }
+.col-btn:focus-visible .hit { stroke: var(--ink); stroke-width: 2; }
+
+/* ---------- task table ---------- */
+.tasks { margin-top: 56px; }
+.tasks > p { margin-top: 6px; color: var(--muted); }
+.table-scroll { margin-top: 16px; overflow-x: auto; }
+table { width: 100%; min-width: 760px; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+th, td { padding: 14px 16px; text-align: left; vertical-align: middle; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-size: 0.85rem; color: var(--muted); font-weight: 700; background: var(--bg); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.rowbtn { border: 0; background: none; padding: 0; cursor: pointer; font-weight: 700; text-align: left; display: flex; align-items: center; gap: 10px; }
+.rowbtn::before { content: ""; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(-45deg); transition: transform 0.2s; flex: none; }
+.rowbtn[aria-expanded="true"]::before { transform: rotate(45deg); }
+.expo { display: flex; align-items: center; gap: 10px; }
+.expo .bar { width: 110px; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.expo .bar span { display: block; height: 100%; background: var(--ink); transition: width 0.4s; }
+.expo b { font-variant-numeric: tabular-nums; min-width: 3ch; }
+.pill { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+.pill.human { background: var(--earth); color: var(--surface); }
+.pill.assist { background: var(--assist-soft); color: var(--assist); box-shadow: inset 0 0 0 1.5px var(--assist); }
+.pill.auto { background: var(--auto-soft); color: var(--auto); }
+.moved { font-size: 0.78rem; color: var(--muted); display: block; margin-top: 2px; }
+.conf { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+.dots { display: inline-flex; gap: 3px; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.dots[data-n="1"] i:nth-child(-n+1), .dots[data-n="2"] i:nth-child(-n+2), .dots[data-n="3"] i { background: var(--muted); }
+tr.detail td { background: var(--bg); border-top: 0; }
+.detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 4px 0 10px 18px; }
+.detail-grid h3 { font-size: 0.85rem; color: var(--muted); }
+.detail-grid p { margin-top: 4px; font-size: 0.95rem; }
+.detail-grid a { color: var(--l3); }
+tr.sel td { background: var(--earth-soft); }
+.off { color: var(--muted); font-size: 0.85rem; }
+
+/* ---------- meaning ---------- */
+.meaning { margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.meaning h2 { grid-column: 1 / -1; }
+.meaning h3 { font: 800 1.1rem/1.3 var(--display); font-stretch: 108%; }
+.meaning p { margin-top: 6px; color: var(--muted); }
+.next { margin-top: 48px; padding: 28px; border-radius: 20px; background: var(--ink); color: var(--bg); display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.next p { flex: 1 1 320px; font-size: 1.1rem; }
+.next button { min-height: 52px; padding: 0 24px; border-radius: 12px; border: 0; background: var(--bg); color: var(--ink); font-weight: 700; cursor: pointer; }
+.sources { margin-top: 32px; padding-block: 0 56px; font-size: 0.88rem; color: var(--muted); }
+.sources h2 { font: 800 1rem/1.3 var(--display); color: var(--ink); }
+.sources ul { margin-top: 8px; display: grid; gap: 4px; }
+.sources a { color: var(--l3); }
+
+/* ---------- live motion ---------- */
+.phase-bar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 4px; z-index: 20; display: none; transform-origin: left;
+  background: linear-gradient(90deg, var(--l1) 0 33.3%, var(--l2) 33.3% 66.6%, var(--l3) 66.6%); }
+@supports (animation-timeline: scroll()) { .phase-bar { display: block; animation: grow-x linear both; animation-timeline: scroll(root); } }
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.wave { animation: drift 2.6s linear infinite; }
+@keyframes drift { to { transform: translateX(var(--p)); } }
+.playbtn { min-height: 48px; padding: 0 20px; border-radius: 12px; border: 2px solid var(--ink); background: none; cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; }
+.playbtn svg { width: 14px; height: 14px; }
+.playbtn:disabled { opacity: 0.6; cursor: default; }
+.chart-wrap > .zones-key { max-width: none; color: var(--ink); }
+.head .datatag { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 0.85rem; color: var(--muted); }
+.datatag i { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--earth); }
+.datatag i::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--earth); animation: ping 1.8s ease-out infinite; }
+@keyframes ping { from { transform: scale(0.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+
+.week-grid { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: center; }
+.future { position: relative; }
+.sky { height: 54px; position: relative; }
+.sky svg { width: 100%; height: 100%; overflow: visible; }
+.sun-rays { transform-box: fill-box; transform-origin: center; animation: spin 14s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.cloud { animation: float 5s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateX(8px); } }
+.drop { animation: fall 0.9s linear infinite; }
+@keyframes fall { from { transform: translateY(-6px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(16px); opacity: 0; } }
+#future-av { width: 110px; margin: 0 auto; }
+.say { margin-top: 14px; padding: 12px 16px; border-radius: 16px 16px 16px 4px; background: var(--bg); border: 1px solid var(--line); font-size: 0.98rem; max-width: 44em; }
+
+/* live avatar */
+.avatar { display: block; overflow: visible; }
+.avatar .av-body { transform-box: view-box; transform-origin: 60px 140px; animation: breathe 3.4s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: translateY(-1.5px); } }
+.avatar .av-head { transform-box: fill-box; transform-origin: 50% 100%; }
+.avatar .av-lids { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+.avatar .av-look { transition: transform 0.3s; }
+.avatar .av-open, .avatar .av-smile { opacity: 0; }
+.avatar .av-open { transform-box: fill-box; transform-origin: center; }
+.avatar.talk .av-open { opacity: 1; animation: talk 0.24s ease-in-out infinite alternate; }
+.avatar.talk .av-mouth, .avatar.talk .av-smile { opacity: 0; }
+@keyframes talk { from { transform: scaleY(0.3); } to { transform: scaleY(1.15); } }
+.avatar.happy:not(.talk) .av-smile { opacity: 1; }
+.avatar.happy:not(.talk) .av-mouth { opacity: 0; }
+.avatar.happy .av-head { animation: nod 0.5s ease-in-out 2; }
+@keyframes nod { 50% { transform: rotate(-5deg) translateY(-1px); } }
+.avatar.think .av-look { transform: translate(3px, -2px); }
+.avatar.think .av-head { animation: tilt 0.6s ease-in-out forwards; }
+@keyframes tilt { to { transform: rotate(4deg); } }
+
+@media (max-width: 920px) {
+  .step:not(.now) span { display: none; }
+  .meaning { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .detail-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (max-width: 520px) {
+  .who span { display: none; }
+  .weekbar span { font-size: 0; padding: 0; }
+}
+@media (max-width: 640px) {
+  .week-grid { grid-template-columns: minmax(0, 1fr); }
+  .future { display: flex; align-items: flex-end; gap: 12px; }
+  .sky { width: 70px; }
+  #future-av { width: 80px; margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .avatar *, .wave, .sun-rays, .cloud, .drop, .datatag i::after { animation: none !important; }
+  .phase-bar { display: none; }
+}
+</style>
+
+<div class="phase-bar" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="logo">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="var(--earth)"/><path d="M6 9h14M6 13h14M6 17h14" stroke="var(--surface)" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="9" r="2.2" fill="var(--l1)"/><circle cx="15" cy="13" r="2.2" fill="var(--l2)"/><circle cx="12" cy="17" r="2.2" fill="var(--l3)"/></svg>
+      ReRole Green
+    </div>
+    <div class="who"><span>Sample profile</span><b class="av" aria-hidden="true">A</b><b>Ahmad</b></div>
+  </header>
+
+  <ol class="steps" aria-label="Progress">
+    <li class="step done"><b>1</b><span>Show your skills</span></li>
+    <li class="step done"><b>2</b><span>Check what we found</span></li>
+    <li class="step now" aria-current="step"><b>3</b><span>See how AI is changing work</span></li>
+    <li class="step"><b>4</b><span>Choose a path</span></li>
+    <li class="step"><b>5</b><span>Plan your first step</span></li>
+  </ol>
+
+  <div class="head">
+    <h1>How AI could change your job.</h1>
+    <p>We split your job into the 12 tasks you confirmed and checked each one against research on what AI can do and what people already use it for. These are estimates, not predictions. Change the speed and the year to see how the picture moves.</p>
+    <p class="datatag"><i></i>Data version 2026-03, sample numbers</p>
+  </div>
+
+  <div class="controls">
+    <div class="control">
+      <span class="control-label" id="speed-label">How fast AI spreads</span>
+      <div class="seg" role="radiogroup" aria-labelledby="speed-label" id="speed"></div>
+      <p class="seg-hint" id="speed-hint"></p>
+    </div>
+    <div class="control">
+      <span class="control-label" id="year-label">Year</span>
+      <div class="seg" role="radiogroup" aria-labelledby="year-label" id="year"></div>
+    </div>
+    <div class="control">
+      <span class="control-label">Watch it change</span>
+      <button type="button" class="playbtn" id="play-years"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>Play 2026 to 2030</button>
+    </div>
+  </div>
+
+  <section class="week" aria-live="polite">
+    <div class="week-grid">
+      <div class="future" aria-hidden="true">
+        <div class="sky" id="sky"></div>
+        <div id="future-av"></div>
+      </div>
+      <div>
+        <h2 id="week-title"></h2>
+        <div class="weekbar" id="weekbar" aria-hidden="true"></div>
+        <div class="legend" id="legend"></div>
+        <p class="say" id="future-say"></p>
+      </div>
+    </div>
+    <ul class="changes" id="changes"></ul>
+  </section>
+
+  <section class="chart-wrap">
+    <h2>Your tasks above and below the waterline</h2>
+    <p>Each column is one task. Its height is how much of the task still needs you. The sea is what AI can do. Tasks under the water could be mostly done by AI. Tasks in the sand are ones AI helps with, but you still lead. Press a column to see the details.</p>
+    <p class="zones-key">
+      <span class="land"><i></i>Dry land: stays with you</span>
+      <span class="sand"><i></i>Sand: AI helps, you lead</span>
+      <span class="sea"><i></i>Under water: likely done by AI</span>
+    </p>
+    <div class="chart-scroll"><svg id="chart" viewBox="0 0 960 360" role="img" aria-label="Chart of how much of each task stays with you"></svg></div>
+  </section>
+
+  <section class="tasks">
+    <h2>Your tasks, one by one</h2>
+    <p>AI exposure is the share of a task's work that AI could do. Press a task to see what AI would do and what stays with you.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Task</th><th class="num">Hours a week</th><th>AI exposure</th><th>What happens</th><th>Confidence</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="meaning">
+    <h2>What this means for you</h2>
+    <div><h3>Logging and checks are going first</h3><p id="m1"></p></div>
+    <div><h3>Fixing problems is your strongest asset</h3><p>AI can suggest what's wrong from an error code, but someone still has to open the panel, test it and fix it safely. You already do this every week.</p></div>
+    <div><h3>Your hands-on electrical work stays yours</h3><p>Isolation, termination and installation have very low exposure in every scenario. They are also exactly what solar and EV charging jobs need.</p></div>
+  </section>
+
+  <div class="next">
+    <p>Next: see which jobs need the tasks that stay with you, and how close you already are to them.</p>
+    <button type="button" id="next-btn">Choose a path</button>
+  </div>
+
+  <section class="sources">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li>How people use AI for each task: <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex" target="_blank" rel="noopener">Anthropic Economic Index</a>, used for the "Steady" speed.</li>
+      <li>What AI could do in each job: <a href="https://www.ilo.org" target="_blank" rel="noopener">ILO generative AI exposure index</a> (2025 refined version), used for the "Fast" speed.</li>
+      <li>Your tasks are matched to the national skills standard (NOSS) and then to international task lists (<a href="https://www.onetonline.org" target="_blank" rel="noopener">O*NET</a>) so the data can be joined.</li>
+      <li>This prototype uses sample numbers shaped like these datasets. They are not real statistics.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+// e: AI exposure (0–1). Index 0–2 = 2026, 2028, 2030 at Steady speed; 3–5 = the same years at Fast speed.
+const TASKS = [
+  { id: "logging", name: "Manual parameter logging", short: ["Parameter", "logging"], hrs: 6, conf: 3,
+    e: [.62, .72, .80, .62, .82, .92],
+    ai: "Sensors record readings every second and software flags anything out of range.",
+    you: "Deciding what an unusual reading means and what to do about it." },
+  { id: "startup", name: "Machine start-up checks", short: ["Start-up", "checks"], hrs: 4, conf: 2,
+    e: [.38, .48, .56, .38, .60, .72],
+    ai: "Machines run self-tests and show a pass or fail list on start-up.",
+    you: "Checking the things sensors can't see: loose guards, leaks, smells, noises." },
+  { id: "handover", name: "Shift handover", short: ["Shift", "handover"], hrs: 2, conf: 2,
+    e: [.40, .50, .58, .40, .62, .74],
+    ai: "Writes the handover summary from the machine logs and alarms.",
+    you: "Telling the next shift what the logs don't show and what to watch out for." },
+  { id: "drawings", name: "Reading electrical drawings", short: ["Reading", "drawings"], hrs: 1, conf: 1,
+    e: [.30, .38, .44, .30, .48, .58],
+    ai: "Finds the right drawing and points to the circuit you're asking about.",
+    you: "Matching the drawing to the real panel, which is often different." },
+  { id: "fault", name: "Fault diagnosis from error codes", short: ["Fault", "diagnosis"], hrs: 6, conf: 3,
+    e: [.25, .32, .38, .25, .42, .52],
+    ai: "Looks up the error code and lists the most likely causes.",
+    you: "Testing, finding the real cause and fixing it safely." },
+  { id: "changeover", name: "Line changeover", short: ["Line", "changeover"], hrs: 4, conf: 1,
+    e: [.22, .30, .36, .22, .40, .50],
+    ai: "Loads the new recipe and settings for the next product.",
+    you: "Swapping parts, adjusting by hand and signing off the first good piece." },
+  { id: "robots", name: "Working alongside automated machines", short: ["Working with", "robots"], hrs: 6, conf: 2,
+    e: [.18, .22, .26, .18, .28, .34],
+    ai: "Runs the repetitive placing and inspection.",
+    you: "Clearing jams, spotting drift and keeping the cell running. More robots means more of this." },
+  { id: "coaching", name: "Coaching new staff", short: ["Coaching", "new staff"], hrs: 2, conf: 2,
+    e: [.10, .12, .14, .10, .16, .20],
+    ai: "Provides step-by-step guides and quizzes.",
+    you: "Showing someone how it really works on the floor, and checking they're safe." },
+  { id: "soldering", name: "Connector soldering and rework", short: ["Soldering", "rework"], hrs: 2, conf: 1,
+    e: [.08, .10, .12, .08, .14, .18],
+    ai: "Inspection cameras point out bad joints.",
+    you: "The rework itself, by hand." },
+  { id: "isolation", name: "Electrical safety isolation", short: ["Safety", "isolation"], hrs: 3, conf: 3,
+    e: [.05, .06, .07, .05, .08, .10],
+    ai: "Can remind you of the steps and log the permit.",
+    you: "Isolating, locking, tagging and proving it's dead. This is a legal duty for a person." },
+  { id: "termination", name: "Cable termination", short: ["Cable", "termination"], hrs: 2, conf: 2,
+    e: [.06, .07, .08, .06, .10, .12],
+    ai: "Very little. Possibly checking torque records.",
+    you: "Stripping, crimping, landing and torquing every conductor." },
+  { id: "install", name: "Electrical installation", short: ["Electrical", "installation"], hrs: 0, conf: 2,
+    e: [.07, .08, .10, .07, .11, .14],
+    ai: "Helps plan cable routes and quantities.",
+    you: "All of the physical installation and testing." },
+];
+
+const SPEEDS = [
+  { id: "steady", name: "Steady", hint: "Based on how people already use AI at work today." },
+  { id: "fast", name: "Fast", hint: "Based on what AI could do if every company adopted it quickly." },
+];
+const YEARS = [2026, 2028, 2030];
+const CAT = {
+  human:  { name: "Stays with you", short: "Stays with you" },
+  assist: { name: "AI helps, you lead", short: "AI helps" },
+  auto:   { name: "Likely done by AI", short: "Done by AI" },
+};
+const AUTO_AT = 0.65, ASSIST_AT = 0.30;
+
+let speed = "steady", year = 2026, open = null, lastMood = null;
+const RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const SKY = {
+  sun: `<svg viewBox="0 0 150 54"><g class="sun-rays" stroke="#E0A800" stroke-width="3" stroke-linecap="round">
+      ${Array.from({ length: 8 }, (_, k) => { const a = k * Math.PI / 4; return `<line x1="${75 + Math.cos(a) * 20}" y1="${27 + Math.sin(a) * 20}" x2="${75 + Math.cos(a) * 26}" y2="${27 + Math.sin(a) * 26}"/>`; }).join("")}
+    </g><circle cx="75" cy="27" r="14" fill="#F2C230"/></svg>`,
+  cloud: `<svg viewBox="0 0 150 54"><circle cx="58" cy="22" r="12" fill="#F2C230"/>
+    <g class="cloud"><ellipse cx="82" cy="32" rx="30" ry="13" fill="#B8C3CE"/><circle cx="72" cy="24" r="12" fill="#B8C3CE"/><circle cx="90" cy="22" r="14" fill="#B8C3CE"/></g></svg>`,
+  rain: `<svg viewBox="0 0 150 54"><g class="cloud"><ellipse cx="75" cy="24" rx="34" ry="13" fill="#8795A3"/><circle cx="64" cy="16" r="12" fill="#8795A3"/><circle cx="84" cy="14" r="14" fill="#8795A3"/></g>
+    ${[52, 66, 80, 94].map((x, k) => `<line class="drop" x1="${x}" y1="38" x2="${x - 3}" y2="46" stroke="#2453C4" stroke-width="2.5" stroke-linecap="round" style="animation-delay:${k * 0.22}s"/>`).join("")}</svg>`,
+};
+
+function avatarSVG({ skin = "#C98E6B", suit = "#2F6CC8", cls = "" } = {}) {
+  return `<svg class="avatar ${cls}" viewBox="0 0 120 140" aria-hidden="true">
+  <g class="av-body">
+    <path d="M18 140 C 20 110, 38 98, 60 98 C 82 98, 100 110, 102 140 Z" fill="${suit}"/>
+    <rect x="30" y="120" width="60" height="6" rx="2" fill="#F2C230"/>
+    <g class="av-head">
+      <rect x="52" y="82" width="16" height="18" fill="${skin}"/>
+      <ellipse cx="60" cy="66" rx="23" ry="26" fill="${skin}"/>
+      <path d="M37 60 C 38 46, 82 46, 83 60 C 76 52, 44 52, 37 60 Z" fill="#1E2328"/>
+      <path d="M33 54 C 33 28, 87 28, 87 54 Z" fill="#F2C230"/>
+      <rect x="29" y="51" width="62" height="7" rx="3.5" fill="#D9A21C"/>
+      <path d="M58 32 h4 v20 h-4z" fill="#D9A21C"/>
+      <g class="av-look">
+        <path d="M46 63 q5 -3 10 0 M64 63 q5 -3 10 0" stroke="#3A2A20" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <g class="av-lids"><ellipse cx="51" cy="69" rx="2.8" ry="3.2" fill="#1E2328"/><ellipse cx="69" cy="69" rx="2.8" ry="3.2" fill="#1E2328"/></g>
+      </g>
+      <path class="av-mouth" d="M54 80 Q60 83 66 80" stroke="#5A2E1E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path class="av-smile" d="M52 78 Q60 87 68 78 Z" fill="#5A2E1E"/>
+      <ellipse class="av-open" cx="60" cy="81" rx="4.5" ry="3" fill="#5A2E1E"/>
+    </g>
+  </g></svg>`;
+}
+document.getElementById("future-av").innerHTML = avatarSVG();
+
+const idx = (s, y) => (s === "fast" ? 3 : 0) + YEARS.indexOf(y);
+const exp = (t, s = speed, y = year) => t.e[idx(s, y)];
+const cat = e => (e >= AUTO_AT ? "auto" : e >= ASSIST_AT ? "assist" : "human");
+
+function seg(el, items, value, key) {
+  el.innerHTML = items.map(it => {
+    const v = it.id ?? it;
+    return `<button type="button" role="radio" id="${key}-${v}" aria-checked="${v === value}" data-v="${v}">${it.name ?? it}</button>`;
+  }).join("");
+}
+
+function renderControls() {
+  seg(document.getElementById("speed"), SPEEDS, speed, "speed");
+  seg(document.getElementById("year"), YEARS, year, "year");
+  document.getElementById("speed-hint").textContent = SPEEDS.find(s => s.id === speed).hint;
+}
+
+function renderWeek() {
+  const total = TASKS.reduce((s, t) => s + t.hrs, 0);
+  const sum = { human: 0, assist: 0, auto: 0 };
+  TASKS.forEach(t => { sum[cat(exp(t))] += t.hrs; });
+  document.getElementById("week-title").textContent =
+    `Your ${total}-hour week in ${year}, if AI spreads at a ${speed} pace`;
+  document.getElementById("weekbar").innerHTML = ["human", "assist", "auto"].map(k =>
+    `<span class="${k}" style="flex-grow:${sum[k] || 0.0001}">${sum[k] ? sum[k] + " h" : ""}</span>`).join("");
+  document.getElementById("legend").innerHTML = ["human", "assist", "auto"].map(k =>
+    `<span class="${k}"><i></i>${CAT[k].name}: <b>${sum[k]} hours</b></span>`).join("");
+
+  const moved = TASKS.filter(t => cat(exp(t)) !== cat(exp(t, "steady", 2026)));
+  document.getElementById("changes").innerHTML = moved.length
+    ? `<li class="mini">What moved compared with today (2026, Steady):</li>` +
+      moved.map(t => `<li>${t.name}: ${CAT[cat(exp(t, "steady", 2026))].name} → <b>${CAT[cat(exp(t))].name}</b></li>`).join("")
+    : `<li>This is today's picture. Pick a later year or the Fast speed to see what changes.</li>`;
+
+  // future Ahmad: weather and mood follow how much of the week goes to AI
+  const mood = sum.auto <= 2 ? "sun" : sum.auto <= 8 ? "cloud" : "rain";
+  if (mood !== lastMood) {
+    document.getElementById("sky").innerHTML = SKY[mood];
+    const av = document.querySelector("#future-av .avatar");
+    av.classList.remove("happy", "think", "talk");
+    void av.getBoundingClientRect();
+    av.classList.add("talk", mood === "sun" ? "happy" : mood === "rain" ? "think" : "happy");
+    clearTimeout(av._t);
+    av._t = setTimeout(() => av.classList.remove("talk"), 1500);
+    lastMood = mood;
+  }
+  document.getElementById("future-say").textContent =
+    mood === "sun" ? `"Almost all of my week is still mine. AI only takes small jobs off my plate."`
+    : mood === "cloud" ? `"AI could take about ${sum.auto} hours of my week, mostly logging and checks. I'd move that time to fixing problems."`
+    : `"${sum.auto} hours of my week could go to AI. Time to grow the tasks that stay with me, like fault finding and electrical work."`;
+
+  const lg = TASKS.find(t => t.id === "logging");
+  document.getElementById("m1").textContent =
+    `Parameter logging is ${Math.round(exp(lg) * 100)}% exposed in this scenario, and start-up checks and handover follow. Together they are ${lg.hrs + 4 + 2} hours of your week. Plan to move that time to tasks AI can't do.`;
+}
+
+// columns arranged like an island: strongest tasks in the middle, based on today's numbers so they don't jump around
+const ORDER = (() => {
+  const sorted = [...TASKS].sort((a, b) => a.e[0] - b.e[0]);
+  const out = [];
+  sorted.forEach((t, i) => (i % 2 ? out.push(t) : out.unshift(t)));
+  return out;
+})();
+
+function renderChart() {
+  const W = 960, top = 24, plotH = 250, base = top + plotH, left = 56, right = 16;
+  const colW = (W - left - right) / ORDER.length;
+  const y = h => base - h * plotH;           // h = share that stays with you (1 - exposure)
+  const water = 1 - AUTO_AT, shore = 1 - ASSIST_AT;
+  const css = v => `var(${v})`;
+  let s = "";
+  // shore band and land guide
+  s += `<rect x="${left}" y="${y(shore)}" width="${W - left - right}" height="${y(water) - y(shore)}" fill="${css("--shore")}"/>`;
+  [0, 0.25, 0.5, 0.75, 1].forEach(v => {
+    s += `<line x1="${left}" x2="${W - right}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--line")}" stroke-width="1"/>`;
+    s += `<text class="tick" x="${left - 8}" y="${y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text>`;
+  });
+  // columns
+  ORDER.forEach((t, i) => {
+    const e = exp(t), h = 1 - e, x = left + i * colW + colW * 0.18, w = colW * 0.64;
+    const c = cat(e);
+    const fill = c === "human" ? "--earth" : c === "assist" ? "--assist" : "--muted";
+    s += `<g class="col-btn" tabindex="0" role="button" data-id="${t.id}" aria-label="${t.name}: ${Math.round(h * 100)}% stays with you, ${CAT[c].name}">
+      <rect class="hit" x="${left + i * colW + 2}" y="${top}" width="${colW - 4}" height="${plotH + 46}" fill="transparent" rx="8"/>
+      <rect class="col" x="${x}" y="${top}" width="${w}" height="${plotH}" rx="5" fill="${css(fill)}" style="transform:scaleY(${h})" ${open === t.id ? `stroke="${css("--ink")}" stroke-width="3"` : ""}/>
+      <text class="col-label" x="${x + w / 2}" y="${base + 20}" text-anchor="middle">${t.short[0]}</text>
+      <text class="col-label" x="${x + w / 2}" y="${base + 36}" text-anchor="middle">${t.short[1]}</text>
+    </g>`;
+  });
+  // sea on top of the columns, so submerged parts read as under water
+  s += `<rect x="${left}" y="${y(water)}" width="${W - left - right}" height="${base - y(water)}" fill="${css("--water")}" pointer-events="none"/>`;
+  // the wave line drifts sideways forever; it is clipped to the plot so it never spills out
+  const seg = (W - left - right) / 48, start = left - seg * 4;
+  s += `<defs><clipPath id="plotclip"><rect x="${left}" y="${top - 10}" width="${W - left - right}" height="${plotH + 20}"/></clipPath></defs>`;
+  s += `<g clip-path="url(#plotclip)" pointer-events="none"><path class="wave" style="--p:${seg * 2}px" d="M${start} ${y(water)} ${Array.from({ length: 52 }, (_, k) => {
+    const x = start + (k + 1) * seg;
+    return `Q ${x - seg / 2} ${y(water) + (k % 2 ? 4 : -4)} ${x} ${y(water)}`;
+  }).join(" ")}" fill="none" stroke="${css("--water-edge")}" stroke-width="2"/></g>`;
+  s += `<text class="tick" x="${left}" y="${top - 10}" text-anchor="start">Share of the task that stays with you</text>`;
+  const svg = document.getElementById("chart");
+  // keep existing columns so heights animate instead of jumping
+  const prev = [...svg.querySelectorAll(".col")].map(r => r.style.transform);
+  svg.innerHTML = s;
+  const cols = [...svg.querySelectorAll(".col")];
+  if (prev.length === cols.length) {
+    const next = cols.map(r => r.style.transform);
+    cols.forEach((r, i) => (r.style.transform = prev[i]));
+    void svg.getBoundingClientRect();
+    cols.forEach((r, i) => (r.style.transform = next[i]));
+  }
+}
+
+function renderRows() {
+  const conf = n => `<span class="conf"><span class="dots" data-n="${n}"><i></i><i></i><i></i></span>${["", "Low", "Medium", "High"][n]}</span>`;
+  const sorted = [...TASKS].sort((a, b) => exp(b) - exp(a));
+  const before = {};
+  document.querySelectorAll("#rows tr[id]").forEach(r => { before[r.id] = r.getBoundingClientRect().top; });
+  document.getElementById("rows").innerHTML = sorted.map(t => {
+    const e = exp(t), c = cat(e), was = cat(exp(t, "steady", 2026));
+    const row = `<tr class="${open === t.id ? "sel" : ""}" id="row-${t.id}">
+      <td><button type="button" class="rowbtn" aria-expanded="${open === t.id}" data-id="${t.id}">${t.name}</button></td>
+      <td class="num">${t.hrs || `<span class="off">Not right now</span>`}</td>
+      <td><span class="expo"><span class="bar"><span style="width:${e * 100}%"></span></span><b>${Math.round(e * 100)}%</b></span></td>
+      <td><span class="pill ${c}">${CAT[c].name}</span>${c !== was ? `<span class="moved">Today: ${CAT[was].name}</span>` : ""}</td>
+      <td>${conf(t.conf)}</td>
+    </tr>`;
+    const detail = open === t.id ? `<tr class="detail"><td colspan="5"><div class="detail-grid">
+      <div><h3>What AI would do</h3><p>${t.ai}</p></div>
+      <div><h3>What stays with you</h3><p>${t.you}</p></div>
+      <div><h3>How we know</h3><p>Steady: ${Math.round(t.e[YEARS.indexOf(year)] * 100)}%, Fast: ${Math.round(t.e[3 + YEARS.indexOf(year)] * 100)}% in ${year}. ${t.conf === 3 ? "Both sources agree." : t.conf === 2 ? "Sources mostly agree." : "Only one source covers this task, so treat it as a rough guide."} <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex" target="_blank" rel="noopener">See the data</a></p></div>
+    </div></td></tr>` : "";
+    return row + detail;
+  }).join("");
+  // rows glide to their new place when the order changes
+  if (!RM) document.querySelectorAll("#rows tr[id]").forEach(r => {
+    const d = before[r.id] === undefined ? 0 : before[r.id] - r.getBoundingClientRect().top;
+    if (d) r.animate({ transform: [`translateY(${d}px)`, "none"] }, { duration: 450, easing: "cubic-bezier(.2,.8,.2,1)" });
+  });
+}
+
+function render() { renderControls(); renderWeek(); renderChart(); renderRows(); }
+
+document.getElementById("speed").addEventListener("click", e => {
+  const b = e.target.closest("[data-v]"); if (!b) return;
+  speed = b.dataset.v; render();
+});
+document.getElementById("year").addEventListener("click", e => {
+  const b = e.target.closest("[data-v]"); if (!b) return;
+  year = Number(b.dataset.v); render();
+});
+function toggle(id, scroll) {
+  open = open === id ? null : id;
+  renderChart(); renderRows();
+  if (scroll && open) document.getElementById("row-" + id).scrollIntoView({ behavior: "smooth", block: "center" });
+}
+document.getElementById("rows").addEventListener("click", e => {
+  const b = e.target.closest(".rowbtn"); if (b) toggle(b.dataset.id, false);
+});
+document.getElementById("chart").addEventListener("click", e => {
+  const g = e.target.closest(".col-btn"); if (g) toggle(g.dataset.id, true);
+});
+document.getElementById("chart").addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const g = e.target.closest(".col-btn"); if (g) { e.preventDefault(); toggle(g.dataset.id, true); }
+});
+let yearTimer = null;
+document.getElementById("play-years").addEventListener("click", e => {
+  const btn = e.currentTarget;
+  clearInterval(yearTimer);
+  let k = 0;
+  year = YEARS[0];
+  render();
+  btn.disabled = true;
+  btn.lastChild.textContent = "Playing";
+  yearTimer = setInterval(() => {
+    k++;
+    year = YEARS[k];
+    render();
+    if (k >= YEARS.length - 1) {
+      clearInterval(yearTimer);
+      btn.disabled = false;
+      btn.lastChild.textContent = "Play again";
+    }
+  }, 1800);
+});
+
+document.getElementById("next-btn").addEventListener("click", e => {
+  e.currentTarget.textContent = "Page 4 is next in the review";
+});
+
+render();
+</script>

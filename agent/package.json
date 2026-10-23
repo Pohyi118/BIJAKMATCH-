@@ -1,0 +1,16 @@
+{
+  "name": "bijakmatch-voice-agent",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file-if-exists=../.env agent.mjs dev",
+    "start": "node --env-file-if-exists=../.env agent.mjs start",
+    "download-files": "node --env-file-if-exists=../.env agent.mjs download-files"
+  },
+  "dependencies": {
+    "@livekit/agents": "^1.9.3",
+    "@livekit/agents-plugin-anthropic": "^1.9.3",
+    "@livekit/rtc-node": "^1.2.1",
+    "zod": "^4.6.7"
+  }
+}

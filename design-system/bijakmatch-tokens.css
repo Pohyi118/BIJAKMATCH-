@@ -1,0 +1,146 @@
+/* BijakMatch design tokens: Green Energy TVET Career Advisor
+   Style: calm static workspace with a left step rail. Sage-white page, forest primary, solar yellow accent.
+   Dials: variance 6 (balanced), motion 5 (subtle feedback), density 7 (clean dashboard).
+   Three layers: primitives -> semantic roles -> components. Components use semantic tokens only.
+   Contrast ratios in comments are measured against --bg (#FAF7F0) unless stated. */
+
+:root{
+  /* ---------- 1. Primitives (never used directly in components) ---------- */
+  --paper-50:#F3F6F0;  --paper-0:#FFFFFF;   --sand-100:#ECF2E8;  --sand-200:#DCE6D6;  --sand-500:#7F8A7D;
+  --ink-900:#1C2620;   --ink-600:#4A534B;
+  --forest-100:#E3EEDF; --forest-700:#1E5A3A; --forest-800:#164530;
+  --sun-100:#FBF0C6;   --sun-400:#F2C230;   --sun-600:#B8860B;   --sun-ink:#6B4E00;
+  --sky-100:#E1E8F5;   --sky-700:#2F57A8;
+  --clay-100:#F7E1D9;  --clay-600:#B5532F;  --clay-800:#8A3A22;
+  --leaf-600:#4E8A3A;
+
+  /* ---------- 2. Semantic colour roles ---------- */
+  --bg:var(--paper-50);                 /* page */
+  --surface:var(--paper-0);             /* bento tiles, cards */
+  --surface-muted:var(--sand-100);      /* inset wells, table headers */
+  --text:var(--ink-900);                /* 14.6:1 */
+  --text-muted:var(--ink-600);          /* 7.5:1, still AA on --surface-muted (6.8:1) */
+  --border:var(--sand-200);             /* decorative hairlines only (1.3:1) */
+  --border-strong:var(--sand-500);      /* input and control outlines, 3.4:1 (meets 3:1 non-text) */
+
+  --primary:var(--forest-700);          /* buttons, links, selected state: 7.6:1 */
+  --primary-hover:var(--forest-800);
+  --on-primary:var(--paper-0);          /* 8.0:1 on --primary */
+  --primary-soft:var(--forest-100);     /* selected tile tint; --primary text on it 6.8:1 */
+
+  --accent:var(--sun-400);              /* solar yellow: FILLS ONLY (1.6:1 as text, never use for text) */
+  --on-accent:var(--ink-900);           /* 9.3:1 on --accent */
+  --accent-soft:var(--sun-100);
+  --accent-ink:var(--sun-ink);          /* text on --accent-soft, 6.8:1 */
+
+  --success:var(--forest-700);   --success-soft:var(--forest-100);
+  --warning-ink:var(--sun-ink);  --warning-soft:var(--sun-100);
+  --danger:var(--clay-800);      --danger-soft:var(--clay-100);   /* 6.2:1 on --danger-soft */
+  --info:var(--sky-700);         --info-soft:var(--sky-100);      /* 5.6:1 on --info-soft */
+
+  /* data tags: what kind of number this is (always paired with a text label) */
+  --tag-real:var(--primary-soft); --tag-sample:var(--accent-soft); --tag-estimate:var(--info-soft); --tag-projection:var(--surface-muted);
+
+  /* chart series, each >= 3:1 on --surface; Do nothing uses a dashed --text-muted line */
+  --series-stay:var(--sky-700);         /* 6.8:1 */
+  --series-evolve:var(--forest-700);    /* 8.0:1 */
+  --series-pivot:var(--clay-600);       /* 4.9:1 */
+  --series-accent:var(--sun-600);       /* 3.2:1, marks only, no text */
+  --series-baseline:var(--text-muted);
+
+  /* focus: two-tone ring, visible on paper (ink 14.6:1) and on forest buttons (sun 4.9:1) */
+  --focus-ring:0 0 0 3px var(--bg),0 0 0 5px var(--ink-900),0 0 0 8px var(--sun-400);
+
+  /* ---------- 3. Typography ---------- */
+  --font-head:"Overpass","Segoe UI",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  /* scale ~1.2 to 1.25; comfortable, legible TVET worker typography */
+  --text-xs:15px;   --lh-xs:22px;     /* tags, captions */
+  --text-sm:17px;   --lh-sm:24px;     /* secondary text, table cells */
+  --text-md:19px;   --lh-md:30px;     /* body */
+  --text-lg:22px;   --lh-lg:30px;     /* tile titles */
+  --text-xl:26px;   --lh-xl:34px;     /* section titles */
+  --text-2xl:36px;  --lh-2xl:44px;    /* page titles */
+  --text-3xl:52px;  --lh-3xl:56px;    /* hero metric (match score) */
+  --text-4xl:64px;  --lh-4xl:68px;    /* landing hero only */
+  --weight-body:400; --weight-strong:700; --weight-head:700; --weight-display:800;
+  --tracking-head:-0.015em;           /* headings only; body keeps default spacing */
+  --numeric:tabular-nums;             /* scores, money, months */
+
+  /* ---------- 4. Spacing (4px base; density 7 = compact gaps, generous section rhythm) ---------- */
+  --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px; --space-5:20px;
+  --space-6:24px; --space-7:32px; --space-8:40px; --space-9:48px; --space-10:64px;
+  --gutter:max(16px,env(safe-area-inset-left,0px));
+
+  /* bento grid */
+  --grid-cols:12;
+  --grid-gap:var(--space-4);          /* 16px between tiles */
+  --tile-pad:var(--space-5);          /* 20px inside tiles */
+  --tile-pad-lg:var(--space-6);       /* 24px for hero tiles */
+  --tile-row:120px;                   /* grid-auto-rows unit; tiles span 1 to 4 rows */
+  --content-max:1360px;
+  --target-min:44px;                  /* every tap target */
+
+  /* ---------- 5. Shape ---------- */
+  --radius-sm:8px; --radius-md:12px; --radius-tile:16px; --radius-hero:24px; --radius-pill:999px;
+
+  /* ---------- 6. Elevation (Swiss: flat by default, depth only for interaction and overlays) ---------- */
+  --elev-0:0 0 0 1px var(--border);                                         /* resting tile: hairline */
+  --elev-1:0 1px 2px rgba(28,38,32,.06),0 0 0 1px var(--border);            /* raised tile */
+  --elev-2:0 8px 24px rgba(28,38,32,.10),0 0 0 1px var(--border);           /* hover / selected */
+  --elev-3:0 20px 48px rgba(28,38,32,.18);                                  /* drawers, popovers, toasts */
+
+  /* ---------- 7. Motion (dial 5: subtle feedback, no overshoot on data) ---------- */
+  --dur-fast:150ms;   /* press, toggles */
+  --dur-base:200ms;   /* hover lift, tab change */
+  --dur-slow:300ms;   /* tile entrance, drawer */
+  --dur-exit:140ms;   /* exits ~70% of enter */
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+  --ease-in:cubic-bezier(.4,0,1,1);
+  --stagger:40ms;     /* per tile or bar */
+  --hover-scale:1.02;
+  --z-base:0; --z-sticky:10; --z-header:20; --z-drawer:40; --z-toast:100;
+
+  color-scheme:light;
+}
+
+/* ---------- Component tokens and base rules (semantic tokens only) ---------- */
+body{margin:0;background:var(--bg);color:var(--text);font:var(--weight-body) var(--text-md)/var(--lh-md) var(--font-body);font-variant-numeric:var(--numeric);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-head);font-weight:var(--weight-head);letter-spacing:var(--tracking-head);text-wrap:balance;margin:0}
+:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+
+.bento{display:grid;grid-template-columns:repeat(var(--grid-cols),minmax(0,1fr));grid-auto-rows:minmax(var(--tile-row),auto);gap:var(--grid-gap);max-width:var(--content-max);margin:0 auto;padding:0 var(--gutter)}
+.tile{position:relative;background:var(--surface);border-radius:var(--radius-tile);box-shadow:var(--elev-0);padding:var(--tile-pad);display:grid;gap:var(--space-3);align-content:start;
+  transition:transform var(--dur-base) var(--ease-out)}
+/* hover depth via an opacity-only shadow layer, so only transform and opacity animate */
+.tile::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:var(--elev-2);opacity:0;pointer-events:none;transition:opacity var(--dur-base) var(--ease-out)}
+.tile.is-interactive{cursor:pointer}
+@media (hover:hover){.tile.is-interactive:hover{transform:scale(var(--hover-scale))}.tile.is-interactive:hover::after{opacity:1}}
+.tile--hero{padding:var(--tile-pad-lg);border-radius:var(--radius-hero)}
+/* common spans: 3 = quarter, 4 = third, 6 = half, 8 = two thirds, 12 = full */
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+.rows-2{grid-row:span 2}.rows-3{grid-row:span 3}
+@media (max-width:1023px){.bento{grid-template-columns:repeat(6,minmax(0,1fr))}.span-3{grid-column:span 3}.span-4,.span-6,.span-8{grid-column:span 6}.span-12{grid-column:span 6}}
+@media (max-width:639px){.bento{grid-template-columns:minmax(0,1fr)}.bento>*{grid-column:1/-1!important;grid-row:auto!important}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:var(--target-min);padding:var(--space-3) var(--space-6);border-radius:var(--radius-pill);
+  border:2px solid var(--primary);background:var(--primary);color:var(--on-primary);font:var(--weight-strong) var(--text-sm)/var(--lh-sm) var(--font-body);cursor:pointer;
+  transition:background-color var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out)}
+.btn:hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+.btn:active{transform:scale(.98)}
+.btn--ghost{background:transparent;color:var(--primary)}
+.btn--ghost:hover{background:var(--primary-soft)}
+.btn--accent{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+
+.metric{font:var(--weight-display) var(--text-3xl)/var(--lh-3xl) var(--font-head);color:var(--primary);font-variant-numeric:var(--numeric)}
+.label{font:var(--weight-strong) var(--text-xs)/var(--lh-xs) var(--font-body);color:var(--text-muted)}
+.tag{display:inline-flex;align-items:center;gap:var(--space-1);font:var(--weight-strong) var(--text-xs)/var(--lh-xs) var(--font-body);padding:2px var(--space-2);border-radius:6px;color:var(--text)}
+.tag--sample{background:var(--tag-sample)}.tag--real{background:var(--tag-real)}.tag--estimate{background:var(--tag-estimate)}.tag--projection{background:var(--tag-projection);box-shadow:inset 0 0 0 1.5px var(--border-strong)}
+.bar{height:8px;border-radius:var(--radius-pill);background:var(--surface-muted);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--primary);transform-origin:left center}  /* grow with scaleX, never width */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .tile.is-interactive:hover{transform:none}
+}
