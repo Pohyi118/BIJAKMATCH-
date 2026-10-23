@@ -107,6 +107,90 @@ function stopMic() {
   micStatus(words ? `Captured ${words} spoken words. Edit if needed, then Send.` : "");
 }
 
+/* GPU voice answer: records a clip with MediaRecorder and sends it to /api/transcribe, which runs
+   Whisper on a RunPod GPU. Works in any browser with a microphone and handles Bahasa Malaysia,
+   which the browser's own speech input (Chrome and Edge only) does poorly. The transcript lands
+   in the answer box so the worker can fix it before sending. */
+let gpuRec = null;
+const GPU_MAX_MS = 90000;
+
+function gpuButton(recording) {
+  const b = $("#ai-gpu-mic");
+  if (!b) return;
+  b.setAttribute("aria-pressed", recording ? "true" : "false");
+  b.textContent = recording ? "Stop and transcribe" : "Record answer (GPU)";
+}
+
+async function gpuMicToggle() {
+  if (gpuRec) return gpuRecStop(false);
+  if (!navigator.mediaDevices || !window.MediaRecorder) {
+    micStatus("This browser cannot record audio. Type your answer instead.");
+    return;
+  }
+  if (rec) stopMic();
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (e) {
+    micStatus("Microphone is blocked. Allow it in the browser address bar, or type your answer.");
+    return;
+  }
+  const mime = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"].find(t => MediaRecorder.isTypeSupported(t)) || "";
+  const mr = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+  const chunks = [];
+  const job = { mr, stream, discard: false, timer: setTimeout(() => gpuRecStop(false), GPU_MAX_MS) };
+  mr.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  mr.onstop = () => gpuRecDone(job, new Blob(chunks, { type: mr.mimeType || "audio/webm" }));
+  gpuRec = job;
+  mr.start();
+  gpuButton(true);
+  micStatus("Recording… speak naturally, then tap Stop and transcribe (90 seconds at most).");
+}
+
+function gpuRecStop(discard) {
+  if (!gpuRec) return;
+  const job = gpuRec;
+  gpuRec = null;
+  job.discard = discard;
+  clearTimeout(job.timer);
+  gpuButton(false);
+  try { job.mr.stop(); } catch (e) {}
+  job.stream.getTracks().forEach(t => t.stop());
+}
+
+async function gpuRecDone(job, blob) {
+  if (job.discard) return;
+  if (blob.size < 1500) {
+    micStatus("Did not catch any sound. Tap Record answer and try again.");
+    return;
+  }
+  micStatus("Sending to the GPU speech service…");
+  try {
+    const audio = await new Promise((ok, no) => {
+      const fr = new FileReader();
+      fr.onload = () => ok(String(fr.result).split(",")[1]);
+      fr.onerror = () => no(fr.error);
+      fr.readAsDataURL(blob);
+    });
+    const res = await fetch(apiUrl("/api/transcribe"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ audio_base64: audio, format: blob.type.includes("mp4") ? "mp4" : "webm", language: S.ai.lang.startsWith("ms") ? "ms" : "en" })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      micStatus(data.error || "The speech service is not available. Type your answer instead.");
+      return;
+    }
+    const box = $("#ai-answer");
+    if (box) box.value = (box.value.trim() ? box.value.trim() + " " : "") + data.text;
+    const words = data.text.split(/\s+/).filter(Boolean).length;
+    micStatus(words ? `Transcribed ${words} words on a RunPod GPU. Edit if needed, then Send.` : "No speech found in the recording. Try again.");
+  } catch (e) {
+    micStatus("Could not reach the speech service. Type your answer instead.");
+  }
+}
+
 /* Camera: live preview plus "Take photo" to show a certificate, a meter or a tool with an answer.
    Photos stay in memory only (never in localStorage) and leave the device only when the answer is sent. */
 const PHOTOS = new Map();
@@ -619,6 +703,7 @@ function interviewView() {
           <div class="row" style="justify-content:space-between">
             <div class="row" style="gap:8px">
               <button class="btn small ghost" id="ai-mic" data-act="ai-mic" aria-pressed="false" ${SR ? "" : "disabled"}>Speak answer</button>
+              <button class="btn small ghost" id="ai-gpu-mic" data-act="ai-gpu-mic" aria-pressed="false" ${ai.pending ? "disabled" : ""}>Record answer (GPU)</button>
               <button class="btn small ghost" data-act="ai-video-pick" ${ai.pending ? "disabled" : ""}>Upload work video</button>
               <input type="file" id="ai-video-file" accept="video/*" hidden>
             </div>

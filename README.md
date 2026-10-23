@@ -62,7 +62,7 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 | Backend       | Node.js (`node:http`), Zod (`src/server`)               |
 | Database      | None; worker state stays in the browser (localStorage)  |
 | AI / Compute  | Anthropic Claude API, LiveKit Cloud voice agent (Deepgram STT, Cartesia TTS) |
-| Hosting / Dev | Replit (run config in `.replit`); RunPod GPU speech-to-text |
+| Hosting / Dev | Replit (run config in `.replit`); RunPod: GPU speech-to-text, GLM-5.3, model training |
 
 ---
 
@@ -77,7 +77,8 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 │   ├── design-system/           # Design tokens
 │   └── archive/                 # Earlier vision doc and prototypes
 ├── runpod/
-│   ├── handler.py           # RunPod serverless handler: Whisper speech-to-text
+│   ├── handler.py           # RunPod serverless handler: Whisper speech-to-text and task-card classify
+│   ├── train/               # Task-card classifier training for a RunPod Pod (export_dataset.mjs, train.py, data/, out/)
 │   ├── Dockerfile           # Worker image for the endpoint
 │   └── requirements.txt     # Worker dependencies
 ├── src/
@@ -91,7 +92,8 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 │   └── SDC2026_TeamName_Runpod_POU.pdf       # RunPod proof of use
 ├── tests/
 │   ├── scoring.test.mjs     # Scoring regression tests
-│   └── runpod.test.mjs      # RunPod client tests (fake network)
+│   ├── runpod.test.mjs      # RunPod speech client tests (fake network)
+│   └── runpodllm.test.mjs   # GLM-5.3 client tests (fake network)
 ├── .env.example             # Example environment variables
 ├── .gitignore
 ├── .replit                  # Replit run configuration
@@ -163,28 +165,46 @@ TODO: describe how the team used Replit (development, hosting, secrets). Only wr
 
 ## How We Use RunPod *(Required)*
 
-**Workload:** GPU speech-to-text. Workers answer the interview by voice in English, Bahasa Malaysia or a mix, and browser speech input handles Malay poorly. `runpod/handler.py` runs Whisper (`faster-whisper`, `large-v3`) on a RunPod GPU and returns the transcript with timestamps.
+RunPod does three jobs. Only the Replit server talks to RunPod, so the key never reaches the browser.
 
-**Connection:** the Replit app (`src/server`) is the only thing that talks to RunPod, so the key never reaches the browser.
+| Use | Where | Needs |
+| --- | --- | --- |
+| **GPU speech-to-text** for voice answers in English and Bahasa Malaysia | `runpod/handler.py` on a Serverless endpoint, called by `POST /api/transcribe`. The interview has a **Record answer (GPU)** button. | `RUNPOD_API_KEY` + `RUNPOD_ENDPOINT_ID` |
+| **GLM-5.3** runs the shift interview when no Anthropic key is set | RunPod public endpoint (OpenAI-compatible), called from `src/server/runpodllm.mjs`. Low reasoning effort and a 2,000-token cap per turn. Text only: photos and video frames are not sent. | `RUNPOD_API_KEY` only, no deployment |
+| **Model training**: a task-card classifier (answer text to one of 15 task cards) | `runpod/train/` on a GPU Pod | a RunPod Pod |
 
 ```
-Browser ──audio──► POST /api/transcribe (Replit, src/server/runpod.mjs) ──► RunPod Serverless Endpoint (Whisper, GPU)
-        ◄─transcript─────────────────────────────────────────────────────────────────┘
+Browser ──audio──► POST /api/transcribe (Replit, src/server) ──► RunPod Serverless endpoint (Whisper, GPU)
+Browser ──answer─► POST /api/interview  (Replit, src/server) ──► Claude, or GLM-5.3 on RunPod, or the offline interviewer
+Pod ── runpod/train/train.py ──► fine-tuned classifier ──► saved on a RunPod network volume ──► handler.py "classify"
 ```
 
-**Status:** the handler, Dockerfile, server route (`/api/transcribe`) and tests are in the repo. The endpoint itself is created from your own RunPod account, and the interview screen does not call `/api/transcribe` yet.
+**Interview model order:** Claude if `ANTHROPIC_API_KEY` is set; otherwise GLM-5.3 if `RUNPOD_API_KEY` is set; otherwise the offline scripted interviewer. If GLM fails, the offline interviewer answers, so the interview never stops. Whatever model answers, the server checks its output the same way (known job keys, known task cards, score between 0 and 100). Worker answers go to RunPod's hosted GLM when that path is used, so tell workers before they start.
 
-**Set up the endpoint:**
+**Set up speech-to-text (Serverless endpoint):**
 
-1. Build and push the worker image: `docker build -t <dockerhub-user>/bijakmatch-stt:1 runpod/` then `docker push <dockerhub-user>/bijakmatch-stt:1`.
-2. In RunPod: **Serverless → New Endpoint**, choose that image, pick a GPU with 16 GB or more, set active workers to 0 and max workers to 1.
+1. Build and push the image: `docker build -t <dockerhub-user>/bijakmatch-stt:1 runpod/` then `docker push <dockerhub-user>/bijakmatch-stt:1`.
+2. In RunPod: **Serverless → New Endpoint**, choose that image, pick a GPU with 16 GB or more, active workers 0, max workers 1.
 3. Copy the endpoint ID and create an API key (Settings → API Keys).
 4. Add `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID` to Replit Secrets (or `.env` locally) and restart.
-5. Check `GET /api/health` shows `"runpodConfigured": true`, then try it:
+5. Check `GET /api/health` shows `"runpodConfigured": true`, then press **Record answer (GPU)** in the interview.
+
+**Train on RunPod (Pod):**
+
+1. Make the data (already committed in `runpod/train/out/`; rerun after editing `runpod/train/data/seed_extra.jsonl`): `node runpod/train/export_dataset.mjs`.
+2. In RunPod: **Pods → Deploy**, pick a GPU (a 24 GB card is plenty) and the **RunPod PyTorch** template. Attach a **Network Volume** so the model survives the Pod.
+3. In the Pod terminal:
 
 ```bash
-curl -X POST http://localhost:5050/api/transcribe   -H "Content-Type: application/json"   -d '{"audio_base64": "<base64 of a short .webm clip>", "format": "webm", "language": "ms"}'
+git clone https://github.com/Pohyi118/BIJAKMATCH-.git && cd BIJAKMATCH-
+pip install transformers numpy          # torch is already in the template
+python runpod/train/train.py --out /runpod-volume/models/taskcards
 ```
+
+4. Training prints the validation score for the trained model **and** for the keyword matcher the app uses today, and saves both in `metrics.json` next to the model. Stop the Pod when it finishes so it stops costing credits.
+5. The Serverless endpoint mounts the same volume. Send `{"input": {"classify": ["I lock out the breaker first"]}}` to get the matching task cards.
+
+**Honest status:** the dataset is 85 answers (67 train, 18 validation): the scripted interviews plus hand-written English and Bahasa Malaysia lines. On those 18 validation answers the existing keyword matcher scores micro-F1 0.57. That number only shows the pipeline works; real accuracy needs real, consented worker answers. The classifier is not wired into scoring yet. A natural use is a deterministic cross-check on the interview model's task extraction. The training script has not been run on a GPU yet, and the speech endpoint and GLM path have been tested only against a fake server.
 
 📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
 
@@ -209,7 +229,7 @@ curl -X POST http://localhost:5050/api/transcribe   -H "Content-Type: applicatio
 - [ ] Fairness checks: input allowlist and gender counterfactual tests in CI
 - [ ] Server-side `/api/score` and an audit log
 - [ ] Bahasa Malaysia interview and UI
-- [ ] Call `/api/transcribe` from the interview screen (upload or record a voice answer)
+- [ ] Run the training on a GPU Pod, add real consented answers, and use the classifier as a cross-check on task extraction
 
 ## Team
 

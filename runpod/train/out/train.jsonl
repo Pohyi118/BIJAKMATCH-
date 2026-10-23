@@ -1,0 +1,67 @@
+{"text":"I check the machines are safe to start and read the night shift's handover notes.","labels":["Equipment start-up check","Shift handover notes"],"source":"scripted:tech"}
+{"text":"I monitor temperature and pressure parameters and record them in the log every hour.","labels":["Parameter logging"],"source":"scripted:tech"}
+{"text":"Yes, I look them up in the manual and test the drive parameters.","labels":["Inverter fault diagnosis"],"source":"scripted:tech"}
+{"text":"New operators come to me. I teach them safe machine start-up and how to clear jams.","labels":["Training others"],"source":"scripted:tech"}
+{"text":"I calibrate the micrometers and inspect the first batch off line 2.","labels":["Quality visual inspection","Equipment start-up check"],"source":"scripted:qc"}
+{"text":"I take samples according to the lot size, measure dimensions, and log deviations.","labels":["Quality visual inspection","Parameter logging"],"source":"scripted:qc"}
+{"text":"I review rejection reports with line supervisors and train junior inspectors.","labels":["Training others"],"source":"scripted:qc"}
+{"text":"I review the overnight breakdown work orders and test substation batteries.","labels":["Equipment start-up check","Shift handover notes"],"source":"scripted:elec"}
+{"text":"I test continuity with a multimeter, check the PLC ladder status, and inspect drive fault codes.","labels":["Fault diagnosis","Inverter fault diagnosis","Multimeter testing"],"source":"scripted:elec"}
+{"text":"Isolate main breaker, apply padlock, verify zero voltage with an approved tester, and ground.","labels":["Safety isolation"],"source":"scripted:elec"}
+{"text":"I conduct briefings before major shutdown overhauls and mentor apprentices.","labels":["Training others"],"source":"scripted:elec"}
+{"text":"I perform the 12-point pre-use checklist, brake test, and check hydraulic fluid.","labels":["Equipment start-up check"],"source":"scripted:fork"}
+{"text":"I scan inbound pallets, stage them in high-bay racking, and record warehouse locations.","labels":["Forklift safe handling","Parameter logging"],"source":"scripted:fork"}
+{"text":"Honk horn at intersections, keep forks 100mm off the ground, and respect pedestrian walkway barriers.","labels":["Safety isolation"],"source":"scripted:fork"}
+{"text":"I update inventory spreadsheets, process vendor invoices, and schedule delivery slots.","labels":["Parameter logging"],"source":"scripted:admin"}
+{"text":"I audit delivery notes, trace shipping manifests, and call the warehouse supervisor.","labels":["Fault diagnosis"],"source":"scripted:admin"}
+{"text":"I maintain confidential archives and observe ergonomics and fire exit protocols.","labels":["Safety isolation"],"source":"scripted:admin"}
+{"text":"I guide department reps on digital form submissions and resolve vendor queries.","labels":["Training others"],"source":"scripted:admin"}
+{"text":"I inspect my personal PPE, check multimeter batteries, and review today's wiring schematic.","labels":["Equipment start-up check","Reading drawings"],"source":"scripted:student"}
+{"text":"I trace the schematic, test continuity across contactor terminals, and fix short circuits.","labels":["Fault diagnosis","Reading drawings"],"source":"scripted:student"}
+{"text":"Always lock off the main supply, test with a calibrated meter before touching any conductor.","labels":["Safety isolation","Multimeter testing"],"source":"scripted:student"}
+{"text":"I divide assembly tasks, verify group members' wiring connections, and explain relay diagrams.","labels":["Training others"],"source":"scripted:student"}
+{"text":"First thing in the morning I walk the line and check every machine is ready to run before we start.","labels":["Equipment start-up check"],"source":"seed_extra"}
+{"text":"Pagi-pagi saya periksa mesin dan pastikan semua selamat sebelum mula kerja.","labels":["Equipment start-up check"],"source":"seed_extra"}
+{"text":"Before power on I do my pre-use checks on the guards, the oil level and the emergency stop.","labels":["Equipment start-up check","Safety isolation"],"source":"seed_extra"}
+{"text":"I read the night shift notes and the logbook so I know what happened while I was away.","labels":["Shift handover notes"],"source":"seed_extra"}
+{"text":"Sebelum mula saya baca nota serahan syif malam dan buku log.","labels":["Shift handover notes"],"source":"seed_extra"}
+{"text":"At handover I write down open work orders and anything the next shift must watch.","labels":["Shift handover notes"],"source":"seed_extra"}
+{"text":"Setiap jam saya catat bacaan suhu dan tekanan dalam rekod.","labels":["Parameter logging"],"source":"seed_extra"}
+{"text":"I record meter readings in a spreadsheet and check them against the limits.","labels":["Parameter logging"],"source":"seed_extra"}
+{"text":"I monitor the process data on the screen and log anything outside the range.","labels":["Parameter logging"],"source":"seed_extra"}
+{"text":"When the alarm stops the line I trace the cause step by step until I find the broken part.","labels":["Fault diagnosis"],"source":"seed_extra"}
+{"text":"Bila mesin berhenti saya cari punca kerosakan, periksa dari sensor sampai ke wayar.","labels":["Fault diagnosis","Sensor troubleshooting"],"source":"seed_extra"}
+{"text":"Last month a conveyor kept tripping. I checked the supply, the contactor and found the overload had tripped.","labels":["Fault diagnosis","Multimeter testing"],"source":"seed_extra"}
+{"text":"The drive showed a fault code so I looked it up in the inverter manual and reset the parameters.","labels":["Inverter fault diagnosis","Fault diagnosis"],"source":"seed_extra"}
+{"text":"Inverter trip, saya baca kod kerosakan VFD dan semak motor.","labels":["Inverter fault diagnosis"],"source":"seed_extra"}
+{"text":"Before I open a panel I switch off, lock it, put my tag on it and test that it is dead.","labels":["Safety isolation","Multimeter testing"],"source":"seed_extra"}
+{"text":"We always isolate the breaker and keep the key with us while we work on the machine.","labels":["Safety isolation"],"source":"seed_extra"}
+{"text":"I never work on a live circuit; I isolate the supply and prove it dead first.","labels":["Safety isolation"],"source":"seed_extra"}
+{"text":"I use a multimeter to check voltage and continuity on the circuit.","labels":["Multimeter testing"],"source":"seed_extra"}
+{"text":"Saya guna meter untuk ukur voltan dan semak kesinambungan wayar.","labels":["Multimeter testing"],"source":"seed_extra"}
+{"text":"I probe the terminals with the tester to find which cable has no continuity.","labels":["Multimeter testing","Wiring, SKM Level 2"],"source":"seed_extra"}
+{"text":"I pull cable, run conduit and wire the control panel following the drawing.","labels":["Wiring, SKM Level 2","Reading drawings"],"source":"seed_extra"}
+{"text":"Saya buat pendawaian panel dan sambung kabel mengikut lukisan.","labels":["Wiring, SKM Level 2","Reading drawings"],"source":"seed_extra"}
+{"text":"I terminate wires, label the circuits and tidy the cabling inside the cabinet.","labels":["Wiring, SKM Level 2"],"source":"seed_extra"}
+{"text":"I read the circuit diagram to see where a relay connects before I touch anything.","labels":["Reading drawings"],"source":"seed_extra"}
+{"text":"Saya baca lukisan skematik dan gambar rajah litar untuk faham sambungan.","labels":["Reading drawings"],"source":"seed_extra"}
+{"text":"I follow the blueprint and the electrical drawing when I install a new line.","labels":["Reading drawings"],"source":"seed_extra"}
+{"text":"I check the ladder logic on the PLC to see which input is not coming on.","labels":["PLC basics","Fault diagnosis"],"source":"seed_extra"}
+{"text":"I connect the laptop to the controller and watch the inputs and outputs live.","labels":["PLC basics"],"source":"seed_extra"}
+{"text":"The proximity sensor was out of position so I adjusted the bracket and tested it.","labels":["Sensor troubleshooting"],"source":"seed_extra"}
+{"text":"Sensor fotoelektrik tidak mengesan, saya bersihkan dan laraskan semula.","labels":["Sensor troubleshooting"],"source":"seed_extra"}
+{"text":"I replace faulty sensors and check the signal before I restart the machine.","labels":["Sensor troubleshooting","Equipment start-up check"],"source":"seed_extra"}
+{"text":"New operators come to me and I show them how to start the machine safely.","labels":["Training others","Equipment start-up check"],"source":"seed_extra"}
+{"text":"Saya ajar pekerja baru cara kendali mesin dan beri taklimat keselamatan.","labels":["Training others"],"source":"seed_extra"}
+{"text":"I mentor the apprentices and guide them through their first repairs.","labels":["Training others"],"source":"seed_extra"}
+{"text":"Tukar produk, saya tukar acuan dan laraskan tetapan mesin.","labels":["Machine changeover"],"source":"seed_extra"}
+{"text":"I do the changeover and fixture setup between batches.","labels":["Machine changeover"],"source":"seed_extra"}
+{"text":"I inspect parts for defects, measure with a micrometer and record the sampling results.","labels":["Quality visual inspection"],"source":"seed_extra"}
+{"text":"I drive the forklift and stack pallets in the high bay racking.","labels":["Forklift safe handling"],"source":"seed_extra"}
+{"text":"Saya pandu forklift, susun palet dan lakukan memunggah barang dengan selamat.","labels":["Forklift safe handling"],"source":"seed_extra"}
+{"text":"Before using the forklift I check the forks, the tyres and the horn, then keep the aisle clear.","labels":["Forklift safe handling","Equipment start-up check"],"source":"seed_extra"}
+{"text":"I mostly type invoices and update spreadsheets in the office.","labels":[],"source":"seed_extra"}
+{"text":"I answer phone calls and book meeting rooms for the managers.","labels":[],"source":"seed_extra"}
+{"text":"Saya jaga kaunter dan jawab pertanyaan pelanggan.","labels":[],"source":"seed_extra"}
+{"text":"I am still studying and have not done any work on a machine yet.","labels":[],"source":"seed_extra"}
+{"text":"I help the team with lunch orders and clean the break room.","labels":[],"source":"seed_extra"}

@@ -9,6 +9,7 @@ const PAGE_TITLES = { story: "Same hands, new work", home: "Your overview", star
 
 function go() {
   stopMic();
+  gpuRecStop(true);
   if (location.hash.replace("#", "") !== "skills") camStop();
   if (lkRoom && location.hash.replace("#", "") !== "skills") liveEnd();
   let r = location.hash.replace("#", "");
@@ -340,6 +341,8 @@ view.addEventListener("click", e => {
   } else if (a === "ai-mic") {
     if (rec) stopMic();
     else startMic();
+  } else if (a === "ai-gpu-mic") {
+    gpuMicToggle();
   } else if (a === "ai-speak") {
     S.ai.speak = !S.ai.speak;
     if (!S.ai.speak && window.speechSynthesis) speechSynthesis.cancel();

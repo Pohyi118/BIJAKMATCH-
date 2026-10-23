@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Equipment start-up check",
+    "keywords": [
+      "start",
+      "machine",
+      "check",
+      "morning",
+      "inspect",
+      "prep",
+      "pre-use",
+      "routine",
+      "power"
+    ]
+  },
+  {
+    "name": "Shift handover notes",
+    "keywords": [
+      "handover",
+      "notes",
+      "night shift",
+      "logbook",
+      "reading notes",
+      "work orders"
+    ]
+  },
+  {
+    "name": "Parameter logging",
+    "keywords": [
+      "parameter",
+      "log",
+      "logging",
+      "temperature",
+      "pressure",
+      "meter",
+      "hourly",
+      "record",
+      "data",
+      "spreadsheets",
+      "invoices"
+    ]
+  },
+  {
+    "name": "Fault diagnosis",
+    "keywords": [
+      "fault",
+      "alarm",
+      "stopped",
+      "troubleshoot",
+      "cause",
+      "broken",
+      "diagnose",
+      "defect",
+      "mismatch",
+      "trace"
+    ]
+  },
+  {
+    "name": "Inverter fault diagnosis",
+    "keywords": [
+      "inverter",
+      "drive",
+      "fault code",
+      "vfd",
+      "inverter manual",
+      "frequency drive",
+      "motor trip"
+    ]
+  },
+  {
+    "name": "Safety isolation",
+    "keywords": [
+      "isolate",
+      "switch off",
+      "lock",
+      "tag",
+      "loto",
+      "lockout",
+      "dead",
+      "safety cabinet",
+      "breaker",
+      "guard",
+      "interlock"
+    ]
+  },
+  {
+    "name": "Multimeter testing",
+    "keywords": [
+      "multimeter",
+      "voltage",
+      "current",
+      "testing",
+      "continuity",
+      "probe",
+      "meter",
+      "tester"
+    ]
+  },
+  {
+    "name": "Wiring, SKM Level 2",
+    "keywords": [
+      "wiring",
+      "cable",
+      "wire",
+      "conduit",
+      "panel wiring",
+      "circuits",
+      "cabling"
+    ]
+  },
+  {
+    "name": "Reading drawings",
+    "keywords": [
+      "drawings",
+      "schematic",
+      "blueprint",
+      "diagram",
+      "circuit diagram",
+      "relay diagram"
+    ]
+  },
+  {
+    "name": "PLC basics",
+    "keywords": [
+      "plc",
+      "ladder logic",
+      "controller",
+      "programmable",
+      "automation",
+      "ladder"
+    ]
+  },
+  {
+    "name": "Sensor troubleshooting",
+    "keywords": [
+      "sensor",
+      "proximity",
+      "photoelectric",
+      "transducer",
+      "bracket"
+    ]
+  },
+  {
+    "name": "Training others",
+    "keywords": [
+      "train",
+      "teach",
+      "new staff",
+      "operator",
+      "show them",
+      "guide",
+      "mentor",
+      "briefing",
+      "apprentice"
+    ]
+  },
+  {
+    "name": "Machine changeover",
+    "keywords": [
+      "changeover",
+      "tooling",
+      "setup",
+      "jig",
+      "fixture"
+    ]
+  },
+  {
+    "name": "Quality visual inspection",
+    "keywords": [
+      "visual inspection",
+      "defect",
+      "sampling",
+      "qc",
+      "calibrate",
+      "micrometer",
+      "dimensions"
+    ]
+  },
+  {
+    "name": "Forklift safe handling",
+    "keywords": [
+      "forklift",
+      "pallet",
+      "stacking",
+      "loading",
+      "unloading",
+      "high-bay",
+      "aisle"
+    ]
+  }
+]

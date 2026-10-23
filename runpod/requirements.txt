@@ -1,2 +1,5 @@
 runpod
 faster-whisper
+transformers
+torch
+numpy

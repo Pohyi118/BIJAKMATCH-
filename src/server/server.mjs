@@ -12,6 +12,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { AccessToken, RoomAgentDispatch, RoomConfiguration } from "livekit-server-sdk";
 import { marketReport } from "./market.mjs";
 import { runpodConfigured, transcribe } from "./runpod.mjs";
+import { glmConfigured, glmJson, GLM_MODEL } from "./runpodllm.mjs";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 import { createRequire } from "node:module";
@@ -301,24 +302,9 @@ function verifyCertificate(body) {
   };
 }
 
-async function interviewTurn(history) {
-  if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
-    return localInterviewTurn(history);
-  }
-  const response = await client.beta.messages.parse({
-    model: MODEL,
-    max_tokens: 16000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    output_config: { effort: "low", format: betaZodOutputFormat(Turn) },
-    system: SYSTEM,
-    messages: toMessages(history)
-  });
-  if (response.stop_reason === "refusal" || !response.parsed_output) {
-    throw Object.assign(new Error("The interviewer could not answer that turn."), { status: 502 });
-  }
-  // The schema only describes allowed values, so snap anything off-list to a safe value.
-  const out = response.parsed_output;
+/* The schema only describes allowed values, so snap anything off-list to a safe value.
+   Every model (Claude, GLM, the offline interviewer) goes through this before the browser sees it. */
+function snapTurn(out) {
   const p = out.profile;
   if (!JOBS[p.job_key]) p.job_key = "unknown";
   if (!["income", "quick"].includes(p.goal)) p.goal = "unknown";
@@ -333,6 +319,40 @@ async function interviewTurn(history) {
   ex.score = Math.max(0, Math.min(100, ex.score));
   if (!LEVELS.includes(ex.level)) ex.level = experienceLevel(ex.score);
   return out;
+}
+
+async function glmInterviewTurn(history) {
+  const raw = await glmJson({ system: SYSTEM, messages: toMessages(history), schemaJson: JSON.stringify(z.toJSONSchema(Turn)) });
+  const parsed = Turn.safeParse(raw);
+  if (!parsed.success) throw Object.assign(new Error("The GLM answer did not match the interview format."), { status: 502 });
+  return snapTurn(parsed.data);
+}
+
+// Claude first; then GLM-5.3 on RunPod if only a RunPod key is set; the offline interviewer is the last resort.
+async function interviewTurn(history) {
+  if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
+    if (glmConfigured()) {
+      try {
+        return await glmInterviewTurn(history);
+      } catch (err) {
+        console.error("GLM interview turn failed, using the offline interviewer:", err.message);
+      }
+    }
+    return localInterviewTurn(history);
+  }
+  const response = await client.beta.messages.parse({
+    model: MODEL,
+    max_tokens: 16000,
+    betas: ["server-side-fallback-2026-07-01"],
+    fallbacks: "default",
+    output_config: { effort: "low", format: betaZodOutputFormat(Turn) },
+    system: SYSTEM,
+    messages: toMessages(history)
+  });
+  if (response.stop_reason === "refusal" || !response.parsed_output) {
+    throw Object.assign(new Error("The interviewer could not answer that turn."), { status: 502 });
+  }
+  return snapTurn(response.parsed_output);
 }
 
 /* Live skill check: a fresh LiveKit Cloud room per call, with the voice agent dispatched
@@ -444,6 +464,8 @@ http.createServer(async (req, res) => {
       anthropicConfigured: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN),
       livekitConfigured: Boolean(process.env.LIVEKIT_URL && process.env.LIVEKIT_API_KEY && process.env.LIVEKIT_API_SECRET),
       runpodConfigured: runpodConfigured(),
+      glmConfigured: glmConfigured(),
+      glmModel: glmConfigured() ? GLM_MODEL : null,
       endpoints: ["/api/interview", "/api/market", "/api/livekit/token", "/api/cert/verify", "/api/transcribe", "/api/health"],
       serverTime: new Date().toISOString()
     });

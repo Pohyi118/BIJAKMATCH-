@@ -5,8 +5,11 @@ This endpoint transcribes an uploaded audio clip with Whisper on a RunPod GPU. T
 server (src/server/runpod.mjs) calls it; the browser never sees the RunPod key.
 
 Request:  {"input": {"audio_base64": "...", "format": "webm", "language": "ms" | "en" | null}}
-          {"input": {"ping": true}} answers without loading the model (for health checks).
+          {"input": {"classify": ["answer text", ...]}} maps answers to task cards with the model
+          trained by runpod/train/train.py (needs the saved model in TASKCARD_MODEL_DIR).
+          {"input": {"ping": true}} answers without loading a model (for health checks).
 Response: {"text", "language", "duration", "segments": [{"start", "end", "text"}]}
+          or {"cards": [[{"card", "score"}, ...], ...]}
           or {"error": "..."}
 """
 
@@ -20,7 +23,9 @@ import runpod
 
 MODEL_NAME = os.getenv("WHISPER_MODEL", "large-v3")
 MAX_BYTES = 12 * 1024 * 1024
+TASKCARD_DIR = os.getenv("TASKCARD_MODEL_DIR", "/runpod-volume/models/taskcards")
 _model = None
+_classifier = None
 
 
 def get_model():
@@ -33,10 +38,50 @@ def get_model():
     return _model
 
 
+def get_classifier():
+    """Load the task-card classifier saved by train.py, or None if it has not been trained yet."""
+    global _classifier
+    if _classifier is None:
+        import json
+        from pathlib import Path
+
+        import torch
+        from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+        folder = Path(TASKCARD_DIR)
+        if not (folder / "task_cards.json").exists():
+            return None
+        meta = json.loads((folder / "task_cards.json").read_text(encoding="utf-8"))
+        tok = AutoTokenizer.from_pretrained(folder)
+        net = AutoModelForSequenceClassification.from_pretrained(folder).eval().to("cuda" if torch.cuda.is_available() else "cpu")
+        _classifier = (tok, net, meta)
+    return _classifier
+
+
+def classify(texts) -> dict:
+    import torch
+
+    loaded = get_classifier()
+    if loaded is None:
+        return {"error": f"no trained task-card model found in {TASKCARD_DIR}; run runpod/train/train.py first"}
+    tok, net, meta = loaded
+    texts = [str(t)[:1000] for t in texts[:32]]
+    enc = tok(texts, truncation=True, max_length=128, padding=True, return_tensors="pt").to(net.device)
+    with torch.no_grad():
+        probs = torch.sigmoid(net(**enc).logits).cpu().tolist()
+    cards = [
+        [{"card": n, "score": round(p, 3)} for n, p in zip(meta["names"], row) if p >= meta["threshold"]]
+        for row in probs
+    ]
+    return {"cards": cards}
+
+
 def handler(job: dict) -> dict:
     data = job.get("input") or {}
     if data.get("ping"):
         return {"ok": True, "model": MODEL_NAME}
+    if isinstance(data.get("classify"), list):
+        return classify(data["classify"])
 
     try:
         audio = base64.b64decode(data.get("audio_base64") or "", validate=True)

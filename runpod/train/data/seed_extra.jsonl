@@ -1,0 +1,54 @@
+{"text": "First thing in the morning I walk the line and check every machine is ready to run before we start.", "labels": ["Equipment start-up check"]}
+{"text": "Pagi-pagi saya periksa mesin dan pastikan semua selamat sebelum mula kerja.", "labels": ["Equipment start-up check"]}
+{"text": "Before power on I do my pre-use checks on the guards, the oil level and the emergency stop.", "labels": ["Equipment start-up check", "Safety isolation"]}
+{"text": "Saya buat pemeriksaan rutin sebelum hidupkan mesin setiap hari.", "labels": ["Equipment start-up check"]}
+{"text": "I read the night shift notes and the logbook so I know what happened while I was away.", "labels": ["Shift handover notes"]}
+{"text": "Sebelum mula saya baca nota serahan syif malam dan buku log.", "labels": ["Shift handover notes"]}
+{"text": "At handover I write down open work orders and anything the next shift must watch.", "labels": ["Shift handover notes"]}
+{"text": "I write the temperature and pressure in the log every hour.", "labels": ["Parameter logging"]}
+{"text": "Setiap jam saya catat bacaan suhu dan tekanan dalam rekod.", "labels": ["Parameter logging"]}
+{"text": "I record meter readings in a spreadsheet and check them against the limits.", "labels": ["Parameter logging"]}
+{"text": "I monitor the process data on the screen and log anything outside the range.", "labels": ["Parameter logging"]}
+{"text": "When the alarm stops the line I trace the cause step by step until I find the broken part.", "labels": ["Fault diagnosis"]}
+{"text": "Bila mesin berhenti saya cari punca kerosakan, periksa dari sensor sampai ke wayar.", "labels": ["Fault diagnosis", "Sensor troubleshooting"]}
+{"text": "Last month a conveyor kept tripping. I checked the supply, the contactor and found the overload had tripped.", "labels": ["Fault diagnosis", "Multimeter testing"]}
+{"text": "I diagnose why a machine produces defects, then fix the setting or call maintenance.", "labels": ["Fault diagnosis"]}
+{"text": "The drive showed a fault code so I looked it up in the inverter manual and reset the parameters.", "labels": ["Inverter fault diagnosis", "Fault diagnosis"]}
+{"text": "Inverter trip, saya baca kod kerosakan VFD dan semak motor.", "labels": ["Inverter fault diagnosis"]}
+{"text": "I test the variable frequency drive and check the motor current when it trips.", "labels": ["Inverter fault diagnosis", "Multimeter testing"]}
+{"text": "Before I open a panel I switch off, lock it, put my tag on it and test that it is dead.", "labels": ["Safety isolation", "Multimeter testing"]}
+{"text": "Saya buat lockout tagout dan pastikan tiada arus sebelum buka kabinet.", "labels": ["Safety isolation"]}
+{"text": "We always isolate the breaker and keep the key with us while we work on the machine.", "labels": ["Safety isolation"]}
+{"text": "I never work on a live circuit; I isolate the supply and prove it dead first.", "labels": ["Safety isolation"]}
+{"text": "I use a multimeter to check voltage and continuity on the circuit.", "labels": ["Multimeter testing"]}
+{"text": "Saya guna meter untuk ukur voltan dan semak kesinambungan wayar.", "labels": ["Multimeter testing"]}
+{"text": "I probe the terminals with the tester to find which cable has no continuity.", "labels": ["Multimeter testing", "Wiring, SKM Level 2"]}
+{"text": "I pull cable, run conduit and wire the control panel following the drawing.", "labels": ["Wiring, SKM Level 2", "Reading drawings"]}
+{"text": "Saya buat pendawaian panel dan sambung kabel mengikut lukisan.", "labels": ["Wiring, SKM Level 2", "Reading drawings"]}
+{"text": "I terminate wires, label the circuits and tidy the cabling inside the cabinet.", "labels": ["Wiring, SKM Level 2"]}
+{"text": "I read the circuit diagram to see where a relay connects before I touch anything.", "labels": ["Reading drawings"]}
+{"text": "Saya baca lukisan skematik dan gambar rajah litar untuk faham sambungan.", "labels": ["Reading drawings"]}
+{"text": "I follow the blueprint and the electrical drawing when I install a new line.", "labels": ["Reading drawings"]}
+{"text": "I check the ladder logic on the PLC to see which input is not coming on.", "labels": ["PLC basics", "Fault diagnosis"]}
+{"text": "Saya boleh baca program PLC dan ubah sedikit logik tangga.", "labels": ["PLC basics"]}
+{"text": "I connect the laptop to the controller and watch the inputs and outputs live.", "labels": ["PLC basics"]}
+{"text": "The proximity sensor was out of position so I adjusted the bracket and tested it.", "labels": ["Sensor troubleshooting"]}
+{"text": "Sensor fotoelektrik tidak mengesan, saya bersihkan dan laraskan semula.", "labels": ["Sensor troubleshooting"]}
+{"text": "I replace faulty sensors and check the signal before I restart the machine.", "labels": ["Sensor troubleshooting", "Equipment start-up check"]}
+{"text": "New operators come to me and I show them how to start the machine safely.", "labels": ["Training others", "Equipment start-up check"]}
+{"text": "Saya ajar pekerja baru cara kendali mesin dan beri taklimat keselamatan.", "labels": ["Training others"]}
+{"text": "I mentor the apprentices and guide them through their first repairs.", "labels": ["Training others"]}
+{"text": "On a product change I swap the tooling, set up the jig and run a test piece.", "labels": ["Machine changeover"]}
+{"text": "Tukar produk, saya tukar acuan dan laraskan tetapan mesin.", "labels": ["Machine changeover"]}
+{"text": "I do the changeover and fixture setup between batches.", "labels": ["Machine changeover"]}
+{"text": "I inspect parts for defects, measure with a micrometer and record the sampling results.", "labels": ["Quality visual inspection"]}
+{"text": "Saya buat pemeriksaan visual, periksa kecacatan dan ukur dimensi dengan mikrometer.", "labels": ["Quality visual inspection"]}
+{"text": "I calibrate the gauges first and then check a sample from every lot.", "labels": ["Quality visual inspection"]}
+{"text": "I drive the forklift and stack pallets in the high bay racking.", "labels": ["Forklift safe handling"]}
+{"text": "Saya pandu forklift, susun palet dan lakukan memunggah barang dengan selamat.", "labels": ["Forklift safe handling"]}
+{"text": "Before using the forklift I check the forks, the tyres and the horn, then keep the aisle clear.", "labels": ["Forklift safe handling", "Equipment start-up check"]}
+{"text": "I mostly type invoices and update spreadsheets in the office.", "labels": []}
+{"text": "I answer phone calls and book meeting rooms for the managers.", "labels": []}
+{"text": "Saya jaga kaunter dan jawab pertanyaan pelanggan.", "labels": []}
+{"text": "I am still studying and have not done any work on a machine yet.", "labels": []}
+{"text": "I help the team with lunch orders and clean the break room.", "labels": []}

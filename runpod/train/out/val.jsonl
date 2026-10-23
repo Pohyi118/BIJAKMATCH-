@@ -1,0 +1,18 @@
+{"text":"I read the fault code on the inverter, checked the sensor wiring and found a loose cable.","labels":["Fault diagnosis"],"source":"scripted:tech"}
+{"text":"Switch off, lock it, tag it with my card, and use a meter to test that it is completely dead.","labels":["Safety isolation","Multimeter testing"],"source":"scripted:tech"}
+{"text":"I stop the lot, isolate the suspect pallet, and perform root-cause checks with the tech.","labels":["Fault diagnosis"],"source":"scripted:qc"}
+{"text":"I confirm the safety guard interlocks and never reach past the light curtain.","labels":["Safety isolation"],"source":"scripted:qc"}
+{"text":"I inspect distribution switchboards, thermal-scan breakers, and record load readings.","labels":["Multimeter testing","Parameter logging"],"source":"scripted:elec"}
+{"text":"I halt the aisle, dismount safely, and diagnose if the pallet or sensor bracket shifted.","labels":["Fault diagnosis"],"source":"scripted:fork"}
+{"text":"We sync on the warehouse management terminal and I train trainee drivers on stack limits.","labels":["Training others"],"source":"scripted:fork"}
+{"text":"I review the inbox, extract purchase orders, and verify billing entries.","labels":["Parameter logging"],"source":"scripted:admin"}
+{"text":"I bend conduits, wire relay contactors on the training panel, and test circuits.","labels":["Wiring, SKM Level 2","Multimeter testing"],"source":"scripted:student"}
+{"text":"Saya buat pemeriksaan rutin sebelum hidupkan mesin setiap hari.","labels":["Equipment start-up check"],"source":"seed_extra"}
+{"text":"I write the temperature and pressure in the log every hour.","labels":["Parameter logging"],"source":"seed_extra"}
+{"text":"I diagnose why a machine produces defects, then fix the setting or call maintenance.","labels":["Fault diagnosis"],"source":"seed_extra"}
+{"text":"I test the variable frequency drive and check the motor current when it trips.","labels":["Inverter fault diagnosis","Multimeter testing"],"source":"seed_extra"}
+{"text":"Saya buat lockout tagout dan pastikan tiada arus sebelum buka kabinet.","labels":["Safety isolation"],"source":"seed_extra"}
+{"text":"Saya boleh baca program PLC dan ubah sedikit logik tangga.","labels":["PLC basics"],"source":"seed_extra"}
+{"text":"On a product change I swap the tooling, set up the jig and run a test piece.","labels":["Machine changeover"],"source":"seed_extra"}
+{"text":"Saya buat pemeriksaan visual, periksa kecacatan dan ukur dimensi dengan mikrometer.","labels":["Quality visual inspection"],"source":"seed_extra"}
+{"text":"I calibrate the gauges first and then check a sample from every lot.","labels":["Quality visual inspection"],"source":"seed_extra"}
