@@ -2,7 +2,6 @@
   "name": "bijakmatch",
   "private": true,
   "description": "BijakMatch (ReRole Green): green career pathway navigator for Malaysian TVET workers",
-  "main": "src/server/server.mjs",
   "scripts": {
     "start": "npm --prefix src/server install && node --env-file-if-exists=.env src/server/server.mjs",
     "proof": "node --env-file=.env scripts/runpod_proof.mjs",
