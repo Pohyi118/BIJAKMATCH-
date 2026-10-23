@@ -2,6 +2,7 @@
   "name": "bijakmatch-server",
   "private": true,
   "type": "module",
+  "main": "server.mjs",
   "scripts": {
     "start": "node --env-file-if-exists=../../.env server.mjs"
   },

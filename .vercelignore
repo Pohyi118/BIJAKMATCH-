@@ -6,5 +6,4 @@ node_modules
 /runpod
 /tests
 /submission
-/src/server
 /src/agent
