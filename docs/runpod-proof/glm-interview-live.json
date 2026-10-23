@@ -1,0 +1,46 @@
+{
+  "generated_at_utc": "2026-10-23T09:57:19.044903+00:00",
+  "what": "Live shift-interview turn answered by GLM-5.3 on RunPod through this app's POST /api/interview (no Anthropic key set)",
+  "input": "Saya Ahmad, 6 tahun jadi juruteknik pengeluaran di Penang. Pagi-pagi saya periksa mesin, lepas tu saya lock dan tag breaker sebelum buka panel.",
+  "output": {
+    "reply": "Baik Ahmad, terima kasih. Anda sudah sebut lock dan tag breaker — langkah keselamatan yang bagus. Berapa tahun dan apa sijil yang anda ada, contohnya SKM atau DOSH?",
+    "done": false,
+    "profile": {
+      "name": "Ahmad",
+      "age": null,
+      "job_key": "tech",
+      "job_title": "Production technician (juruteknik pengeluaran)",
+      "years": 6,
+      "state": "Penang",
+      "certificates": [],
+      "goal": "unknown",
+      "aim": null
+    },
+    "tasks": [
+      {
+        "card": "Safety isolation",
+        "quote": "saya lock dan tag breaker sebelum buka panel"
+      },
+      {
+        "card": "Equipment start-up check",
+        "quote": "Pagi-pagi saya periksa mesin"
+      }
+    ],
+    "experience": {
+      "level": "Not enough info",
+      "score": 0,
+      "reasons": [
+        "Need at least one more shift detail before scoring"
+      ]
+    },
+    "evidence": [
+      {
+        "source": "talk",
+        "at_seconds": null,
+        "observation": "Locks and tags the breaker before opening a panel during morning machine checks",
+        "card": "Safety isolation",
+        "safety": "good"
+      }
+    ]
+  }
+}
