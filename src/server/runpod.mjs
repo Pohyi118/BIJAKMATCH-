@@ -2,7 +2,7 @@
    The RunPod key stays on the server, like the Anthropic key. Without RUNPOD_API_KEY and
    RUNPOD_ENDPOINT_ID the route reports "not configured" and the app uses the browser's own speech input. */
 
-const BASE = "https://api.runpod.ai/v2";
+const DEFAULT_BASE = "https://api.runpod.ai/v2"; // RUNPOD_API_BASE overrides it, which lets tests point at a local fake
 const MAX_AUDIO_BASE64 = 11_000_000; // about 8 MB of audio
 const POLL_MS = 1500;
 const DEADLINE_MS = 120_000;
@@ -24,7 +24,7 @@ export async function transcribe({ audioBase64, format = "webm", language = null
   if (!["en", "ms", null].includes(language)) language = null;
 
   const headers = { Authorization: `Bearer ${env.RUNPOD_API_KEY}`, "Content-Type": "application/json" };
-  const root = `${BASE}/${env.RUNPOD_ENDPOINT_ID}`;
+  const root = `${(env.RUNPOD_API_BASE || DEFAULT_BASE).replace(/\/$/, "")}/${env.RUNPOD_ENDPOINT_ID}`;
   const started = Date.now();
 
   let job = await call(fetchImpl, `${root}/runsync`, { method: "POST", headers, body: JSON.stringify({ input: { audio_base64: audioBase64, format, language } }) });

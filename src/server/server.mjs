@@ -401,6 +401,8 @@ async function serveStatic(req, res) {
 function send(res, status, body) {
   const json = typeof body !== "string";
   res.writeHead(status, {
+    // an oversized upload is not read to the end, so the connection must not be reused
+    ...(status === 413 ? { Connection: "close" } : {}),
     "Content-Type": json ? "application/json" : "text/plain",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
