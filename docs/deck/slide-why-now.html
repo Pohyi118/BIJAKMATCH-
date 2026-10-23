@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>BijakMatch: Why now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800&display=swap">
+<style>
+:root{--ink:#111111;--green:#16A34A;--green-dark:#15803D;--mint:#E7F7EC;--red:#DC2626;--grey-bar:#6B7280;--paper:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9dcd9}
+body{display:grid;place-items:center;min-height:100vh;font-family:Inter,sans-serif;color:var(--ink)}
+.slide{position:relative;width:1280px;height:720px;background:var(--paper);padding:40px 48px 30px;overflow:hidden;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px}
+.tag{display:inline-block;background:var(--ink);color:#fff;font:800 10.5px/1 Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;padding:6px 10px}
+.tag.red{background:var(--red)}.tag.green{background:var(--green)}
+.eyebrow{justify-self:start}
+h1{font:400 44px/1.02 "Archivo Black",Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em}
+h1 span{color:var(--green)}
+.cols{display:grid;grid-template-columns:62fr 38fr;gap:20px;min-height:0}
+.left{display:grid;grid-template-rows:1fr auto;gap:14px;min-height:0}
+.illus{position:relative;border:2px solid var(--ink);display:grid;grid-template-columns:1.2fr .8fr;min-height:0}
+.half{position:relative;padding:34px 10px 34px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden}
+.half+.half{border-left:2px solid var(--ink)}
+.half .tag{position:absolute;top:0;left:0;z-index:2}
+.shot{border:2px solid var(--ink);background:#EEF3EC;display:block;width:100%;object-fit:contain}
+.main-shot{flex:0 0 auto;height:auto;object-fit:contain}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
+.mini img{height:100%;object-fit:cover;object-position:top left}
+.clip{flex:0 0 auto;height:200px;object-fit:cover;object-position:top left}
+.cv{border:2px solid var(--ink);padding:8px 10px;display:grid;gap:4px;font-size:11px;line-height:1.3}
+.cv b{font:800 10px/1 Inter;text-transform:uppercase;letter-spacing:.08em;color:var(--grey-bar)}
+.cv .line{font-weight:600;font-size:13px}
+.cv .gap{color:var(--red);font-weight:800;font-size:12px}
+.credit{font-size:9px;color:var(--grey-bar)}
+.banner{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%) rotate(-2deg);background:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 20px;font:400 26px/1 "Archivo Black",Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap;z-index:3}
+.banner span{color:var(--red)}
+.def{display:grid;grid-template-columns:auto 1fr;border:2px solid var(--ink);margin-top:6px}
+.def .term{background:var(--ink);color:#fff;font:400 15px/1 "Archivo Black",Inter,sans-serif;text-transform:uppercase;padding:12px 16px;display:grid;align-items:center}
+.def .txt{padding:9px 14px;font-size:12.5px;line-height:1.35;display:grid;align-items:center}
+.right{display:grid;grid-template-rows:1fr 1fr;gap:16px;min-height:0}
+.panel{position:relative;border:2px solid var(--ink);padding:24px 14px 8px;display:flex;flex-direction:column;gap:4px;min-height:0}
+.panel.mint{background:var(--mint)}
+.panel>.tag{position:absolute;top:-2px;left:12px;transform:translateY(-50%)}
+.big{font:400 50px/1 "Archivo Black",Inter,sans-serif;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.p2 .big{color:var(--green-dark)}
+.sub{color:var(--green);font:800 10px/1.2 Inter;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.rows{display:grid;gap:5px;margin-top:auto}
+.row{display:grid;grid-template-columns:104px 1fr 78px;gap:8px;align-items:center;font-size:11px;font-weight:600;line-height:1.1}
+.row small{display:block;font-size:9px;font-weight:400;color:var(--grey-bar)}
+.row .bar{height:13px;background:transparent}
+.row .bar i{display:block;height:100%;background:var(--ink);min-width:4px}
+.row.g .bar i{background:var(--grey-bar)}
+.row b{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:12px}
+.note{font-size:9px;line-height:1.25;color:var(--grey-bar);margin-top:3px}
+footer{font-size:9px;line-height:1.3;color:var(--grey-bar)}
+</style>
+</head>
+<body>
+<main class="slide">
+  <span class="tag eyebrow">Why now · 01</span>
+
+  <h1>Technicians are worried.<br><span>They need a map.</span></h1>
+
+  <div class="cols">
+    <section class="left">
+      <div class="illus">
+        <div class="half">
+          <span class="tag">With BijakMatch</span>
+          <img class="shot main-shot" src="../deck-images/proto-cards.png" alt="Prototype: Stay, Evolve and Pivot cards with match score, cost and market crowding">
+          <div class="mini">
+            <img class="shot" src="../deck-images/proto-evidence.png" alt="Prototype: verified, hidden and rusty skills">
+            <img class="shot" src="../deck-images/proto-calendar.png" alt="Prototype: study calendar and course timeline">
+          </div>
+        </div>
+        <div class="half">
+          <span class="tag red">Today</span>
+          <img class="shot clip" src="../deck-images/petronas-ai-headline.png" alt="News headline: Technology shift, AI behind PETRONAS cutting workers, PM">
+          <div class="credit">Headline: [outlet name], 14 Aug 2025</div>
+          <div class="cv">
+            <b>What a CV shows</b>
+            <span class="line">Technician · 6 years · 1 certificate</span>
+            <span class="gap">4 of 10 real skills are on paper.</span>
+          </div>
+        </div>
+        <div class="banner">Fear, or a <span>plan?</span></div>
+      </div>
+      <div class="def">
+        <div class="term">BijakMatch</div>
+        <div class="txt"><span>A career planner for TVET workers. It reads certificates and real daily tasks, then compares <b>Stay, Evolve and Pivot</b> with fixed rules on open government data.</span></div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="panel mint p1">
+        <span class="tag">Jobs facing change</span>
+        <div class="big">620,000</div>
+        <div class="sub">Highly impacted · 10 sectors</div>
+        <div class="rows">
+          <div class="row"><span>Highly impacted</span><span class="bar"><i style="width:17.7%"></i></span><b>620,000</b></div>
+          <div class="row"><span>Medium</span><span class="bar"><i style="width:51.4%"></i></span><b>1,800,000</b></div>
+          <div class="row"><span>Low</span><span class="bar"><i style="width:28%"></i></span><b>980,000</b></div>
+          <div class="row g"><span>All workers<small>in these 10 sectors</small></span><span class="bar"><i style="width:100%"></i></span><b>3,500,000</b></div>
+        </div>
+      </div>
+
+      <div class="panel p2">
+        <span class="tag green">TVET learners</span>
+        <div class="big">439,000</div>
+        <div class="sub">Enrolled · Oct 2025</div>
+        <div class="rows">
+          <div class="row"><span>2023</span><span class="bar"><i style="width:93.1%"></i></span><b>408,767</b></div>
+          <div class="row"><span>2024</span><span class="bar"><i style="width:96.4%"></i></span><b>423,267</b></div>
+          <div class="row"><span>2025</span><span class="bar"><i style="width:100%"></i></span><b>439,000</b></div>
+          <div class="row g"><span>New entrants<small>2023 only</small></span><span class="bar"><i style="width:40%"></i></span><b>175,780</b></div>
+        </div>
+        <div class="note">Counts differ by source and date. Up to 300,000 green jobs are expected by 2050 (NETR).</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>Sources: TalentCorp workforce study, Nov 2024 (via Vulcan Post, Malay Mail) · Deputy Prime Minister via The Sun / Bernama, Oct 2025 · The Star, Feb 2025 · ISEAS Perspective 2025/5 · Human Resources Minister via Malay Mail, Aug 2025</footer>
+</main>
+</body>
+</html>

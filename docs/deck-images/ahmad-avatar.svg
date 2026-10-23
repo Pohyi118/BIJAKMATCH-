@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="avatar happy" viewBox="0 0 120 140" aria-hidden="true">
+  <g class="av-body">
+    <path d="M18 140 C 20 110, 38 98, 60 98 C 82 98, 100 110, 102 140 Z" fill="#2F6CC8"/>
+    <rect x="30" y="120" width="60" height="6" rx="2" fill="#F2C230"/>
+    
+    
+    <g class="av-head">
+      <rect x="52" y="82" width="16" height="18" fill="#C98E6B"/>
+      <ellipse cx="60" cy="66" rx="23" ry="26" fill="#C98E6B"/>
+      <path d="M37 60 C 38 46, 82 46, 83 60 C 76 52, 44 52, 37 60 Z" fill="#1E2328"/>
+      <path d="M33 54 C 33 28, 87 28, 87 54 Z" fill="#F2C230"/>
+      <rect x="29" y="51" width="62" height="7" rx="3.5" fill="#D9A21C"/>
+      <path d="M58 32 h4 v20 h-4z" fill="#D9A21C"/>
+      <path d="M46 63 q5 -3 10 0 M64 63 q5 -3 10 0" stroke="#3A2A20" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <g class="av-lids"><ellipse cx="51" cy="69" rx="2.8" ry="3.2" fill="#1E2328"/><ellipse cx="69" cy="69" rx="2.8" ry="3.2" fill="#1E2328"/></g>
+      <path class="av-mouth" d="M54 80 Q60 83 66 80" stroke="#5A2E1E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path class="av-smile" d="M52 78 Q60 87 68 78 Z" fill="#5A2E1E"/>
+      <ellipse class="av-open" cx="60" cy="81" rx="4.5" ry="3" fill="#5A2E1E"/>
+    </g>
+  </g></svg>
