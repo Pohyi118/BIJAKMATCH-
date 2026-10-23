@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BijakMatch pitch deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800&display=swap">
+<style>
+:root{--ink:#111111;--green:#16A34A;--green-dark:#15803D;--mint:#E7F7EC;--red:#DC2626;--grey-bar:#6B7280;--paper:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9dcd9;height:100%;overflow:hidden;font-family:Inter,sans-serif;color:var(--ink)}
+.stage{position:absolute;left:50%;top:50%;width:1280px;height:720px}
+.slide{display:none;position:absolute;inset:0;background:var(--paper);padding:38px 48px 26px;overflow:hidden;grid-template-rows:auto auto 1fr auto;gap:10px}
+.slide.on{display:grid}
+.hud{position:fixed;left:0;right:0;bottom:6px;text-align:center;font:600 12px Inter,sans-serif;color:#555}
+.tag{display:inline-block;background:var(--ink);color:#fff;font:800 10.5px/1 Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;padding:6px 10px;white-space:nowrap}
+.tag.red{background:var(--red)}.tag.green{background:var(--green)}.tag.mint{background:var(--mint);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.eyebrow{justify-self:start}
+h1,.h{font-family:"Archivo Black",Inter,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.02em}
+h1{font-size:44px;line-height:1.02}
+h1 span,.h span{color:var(--green)}
+footer{font-size:9px;line-height:1.3;color:var(--grey-bar)}
+.body{position:relative;min-height:0;display:grid;gap:18px}
+.box{position:relative;border:2px solid var(--ink);background:#fff;min-height:0}
+.box>.tag:first-child{position:absolute;top:-2px;left:-2px}
+.box.top-tag>.tag:first-child{top:0;left:12px;transform:translateY(-50%)}
+.mintbg{background:var(--mint)}
+.shot{display:block;width:100%;border:2px solid var(--ink);background:#EEF3EC;object-fit:cover;object-position:top left}
+.banner{position:absolute;left:50%;bottom:6px;transform:translateX(-50%) rotate(-2deg);background:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 20px;font:400 24px/1 "Archivo Black",Inter,sans-serif;text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap;z-index:5}
+.banner span{color:var(--red)}
+.big{font:400 46px/1 "Archivo Black",Inter,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big.g{color:var(--green-dark)}
+.sub{color:var(--green);font:800 10px/1.25 Inter;text-transform:uppercase;letter-spacing:.08em}
+.num{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;border:2px solid var(--ink);padding:10px 12px;background:#fff}
+.num i{font:400 18px/1 "Archivo Black",Inter,sans-serif;font-style:normal;background:var(--ink);color:#fff;width:34px;height:34px;display:grid;place-items:center}
+.num i.r{background:var(--red)}.num i.g{background:var(--green)}
+.num b{font:800 15px/1.2 Inter}.big-num .num b{font-size:19px}.big-num .num span{font-size:14px}.big-num .num i{width:44px;height:44px;font-size:22px}.big-num .num{grid-template-columns:44px 1fr;padding:12px 16px}.num span{display:block;font-weight:400;font-size:12px;line-height:1.3;color:#374151;margin-top:2px}
+.chip{display:inline-block;border:2px solid var(--ink);padding:5px 10px;font:800 11px/1 Inter;background:#fff}
+.chip.x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px;color:#374151}
+.arrow{display:grid;place-items:center;font:400 26px/1 "Archivo Black";color:var(--ink)}
+table.t{border-collapse:collapse;width:100%;font-size:11px}
+table.t th,table.t td{border:2px solid var(--ink);padding:5px 8px;text-align:left}
+table.t th{background:var(--ink);color:#fff;font:800 9.5px Inter;text-transform:uppercase;letter-spacing:.08em}
+.lines{display:grid;gap:6px;font-size:13px;line-height:1.3;font-weight:600}
+.lines li{list-style:none;padding-left:16px;position:relative}
+.lines li::before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;background:var(--green)}
+.ph-clip{border:2px dashed var(--grey-bar);background:#F3F4F6;display:grid;place-items:center;text-align:center;font-size:11px;color:var(--grey-bar);padding:10px}
+@media print{html,body{overflow:visible;height:auto}.stage{position:static;transform:none!important}.slide{display:grid!important;position:relative;width:1280px;height:720px;page-break-after:always}.hud{display:none}}
+</style></head>
+<body><div class="stage" id="stage">
+<main class="slide" data-n="1"><div style="grid-row:1/-1;display:grid;grid-template-columns:54% 46%;gap:24px;min-height:0">
+  <div style="display:grid;grid-template-rows:auto 1fr auto;min-height:0">
+    <div style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 32 32" width="40" height="40" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#111"/><path d="M9 21c0-7 5-11 14-12-1 9-5 14-12 14" fill="#16A34A"/><path d="M10 23c3-4 6-7 10-10" stroke="#F2C230" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><div><div class="h" style="font-size:26px;line-height:1">BijakMatch</div><div style="font:600 13px/1.3 Inter;color:#374151;margin-top:3px">Your trusted career advisor for TVET workers</div></div></div>
+    <div style="align-self:center">
+      <span class="tag green">Pitch deck</span>
+      <div class="h" style="font-size:84px;line-height:.98;margin-top:14px">Same hands.<br><span>New work.</span></div>
+      <p style="font-size:17px;line-height:1.4;margin-top:18px;max-width:30em;color:#374151">A career planner that reads a TVET worker's certificates and real daily tasks, then shows a clear, affordable next step.</p>
+    </div>
+    <div style="display:flex;gap:18px;align-items:end">
+      <div class="box" style="padding:12px 16px"><div style="font:800 10px Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--grey-bar)">Prepared by</div><div class="h" style="font-size:24px;margin-top:4px">KMJDIHATIKU</div></div>
+      <div style="font-size:12px;color:var(--grey-bar)">[Event name · date]</div>
+    </div>
+  </div>
+  <div style="position:relative;min-height:0">
+    <img class="shot" src="../deck-images/proto-cards.png" alt="Prototype: Stay, Evolve and Pivot cards" style="position:absolute;top:40px;left:0;width:100%;transform:rotate(2deg);box-shadow:6px 6px 0 var(--ink)">
+    <img class="shot" src="../deck-images/proto-transition-card.png" alt="Prototype: Career Transition Card" style="position:absolute;bottom:20px;right:10px;width:78%;height:300px;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)">
+    <span class="tag red" style="position:absolute;top:22px;right:0;transform:rotate(2deg)">Working prototype</span>
+  </div>
+</div></main><main class="slide" data-n="2"><span class="tag eyebrow">Why now · 02</span><h1>The jobs are changing.<br><span>The workers are not ready.</span></h1>
+<div class="body" style="grid-template-columns:56% 1fr">
+  <div class="box" style="padding:30px 12px 30px;display:flex;flex-direction:column;gap:6px">
+    <span class="tag">Headline</span>
+    <img class="shot" src="../deck-images/talentcorp-620k-headline.png" alt="Headline: AI and green economy to impact 620,000 jobs in Malaysia by 2030" style="flex:1;min-height:0;object-fit:contain;background:#fff">
+    <div style="font-size:9.5px;color:var(--grey-bar)">The Sun Daily, via TalentCorp, 14 Aug 2025</div>
+    <div style="position:absolute;right:-10px;top:24px;background:var(--green);color:#fff;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:8px 14px;transform:rotate(3deg)"><div class="h" style="font-size:36px;line-height:1">620,000</div><div style="font:800 10px Inter;text-transform:uppercase;letter-spacing:.08em">jobs impacted by 2030</div></div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:16px;min-height:0">
+    <div class="box" style="padding:30px 12px 10px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center">
+      <span class="tag">TVET today</span>
+      <div class="ph-clip" style="height:100%">[Clipping: The Sun, Oct 2025<br>TVET enrolment headline]</div>
+      <div><div class="big">439,000</div><div class="sub">TVET learners</div></div>
+    </div>
+    <div class="box" style="padding:30px 12px 10px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center">
+      <span class="tag green">Green jobs</span>
+      <div class="ph-clip" style="height:100%">[Clipping: Malay Mail, 27 Aug 2025<br>green jobs headline]</div>
+      <div><div class="big g">300,000</div><div class="sub">Green jobs by 2050 (up to)</div></div>
+    </div>
+  </div>
+  <div class="banner">Change is coming. <span>Who guides them?</span></div>
+</div>
+<footer>Sources: The Sun Daily via TalentCorp, 14 Aug 2025 · Deputy Prime Minister via The Sun / Bernama, Oct 2025 · Human Resources Minister via Malay Mail, 27 Aug 2025 (NETR)</footer></main><main class="slide" data-n="3"><span class="tag eyebrow">The worker · 03</span><h1>Meet Encik Ahmad.<br><span>Three problems, no map.</span></h1>
+<div class="body" style="grid-template-columns:34% 1fr">
+  <div class="box mintbg" style="padding:30px 16px 14px;display:grid;grid-template-rows:auto 1fr;gap:10px">
+    <span class="tag">Encik Ahmad</span>
+    <div style="display:grid;place-items:center;border:2px solid var(--ink);background:#fff;height:150px"><img src="../deck-images/ahmad-avatar.svg" alt="Encik Ahmad avatar" style="height:136px"></div>
+    <table class="t" style="font-size:12px;background:#fff;align-self:start">
+      <tr><td><b>Age</b></td><td>28 · TVET graduate</td></tr>
+      <tr><td><b>Job</b></td><td>E&amp;E production technician, 5 years</td></tr>
+      <tr><td><b>Certificates</b></td><td>SKM electrical + 1 HRD Corp short course</td></tr>
+      <tr><td><b>Time</b></td><td>4 hours a week, limited budget</td></tr>
+      <tr><td><b>Worry</b></td><td>"AI will replace technicians"</td></tr>
+    </table>
+  </div>
+  <div class="big-num" style="display:grid;grid-template-rows:1fr 1fr 1fr auto;gap:12px;min-height:0;padding-bottom:56px">
+    <div class="num"><i class="r">1</i><div><b>His CV can't show what he can do.</b><span>"Technician, 5 years" hides the faults he fixes and the evidence he has.</span></div></div>
+    <div class="num"><i class="r">2</i><div><b>AI news scares him. It doesn't guide him.</b><span>He needs to know which tasks are changing, not a threat.</span></div></div>
+    <div class="num"><i class="r">3</i><div><b>"Go green" has no first step.</b><span>A lasting skill or a fad? Can he learn it in time? Which licence is he missing?</span></div></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;align-self:start"><span class="tag">Three wrong roads</span><span class="chip x">Another degree</span><span class="chip x">A generic AI course</span><span class="chip x">Do nothing</span></div>
+  </div>
+  <div class="banner">What carries over? <span>What do I do first?</span></div>
+</div>
+<footer>Encik Ahmad is an illustrative profile; all of his data is synthetic.</footer></main><main class="slide" data-n="4"><span class="tag eyebrow">Our solution · 04</span><h1>Three screens.<br><span>One clear next step.</span></h1>
+<div class="body" style="grid-template-rows:1fr auto">
+  <div style="display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;min-height:0">
+    <div class="box" style="padding:30px 12px 12px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;min-height:0">
+      <span class="tag ">1 · Understand</span>
+      <div style="font:800 15px/1.25 Inter">"What is changing in my job?"</div>
+      <img class="shot" src="../deck-images/proto-evidence.png" alt="Prototype: skills panel" style="height:100%;min-height:0;">
+      <div style="font-size:12px;font-weight:600;border-top:2px solid var(--ink);padding-top:6px">→ Verified, Hidden and Rusty skills</div></div>
+    <div class="arrow">→</div>
+    <div class="box" style="padding:30px 12px 12px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;min-height:0">
+      <span class="tag ">2 · Decide</span>
+      <div style="font:800 15px/1.25 Inter">"Stay, Evolve or Pivot?"</div>
+      <img class="shot" src="../deck-images/proto-cards.png" alt="Prototype: path cards" style="height:100%;min-height:0;object-position:50% 0">
+      <div style="font-size:12px;font-weight:600;border-top:2px solid var(--ink);padding-top:6px">→ Explainable ranking for his state</div></div>
+    <div class="arrow">→</div>
+    <div class="box" style="padding:30px 12px 12px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;min-height:0">
+      <span class="tag green">3 · Act</span>
+      <div style="font:800 15px/1.25 Inter">"What can I do this week?"</div>
+      <img class="shot" src="../deck-images/proto-calendar.png" alt="Prototype: study calendar" style="height:100%;min-height:0;">
+      <div style="font-size:12px;font-weight:600;border-top:2px solid var(--ink);padding-top:6px">→ Courses in a weekly calendar</div></div>
+  </div>
+  <div class="box mintbg" style="display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;padding:10px 14px">
+    <span class="tag" style="position:static">Result</span>
+    <div style="font-size:13px;font-weight:600"><b>Career Transition Card:</b> chosen path · first step within 4 weeks · cost and time · missing licences</div>
+  </div>
+  <div class="banner" style="left:auto;right:0;bottom:auto;top:-78px;transform:rotate(-2deg)">Certify first. <span>Then fill the gap.</span></div>
+</div>
+<footer>Screenshots: BijakMatch prototype, sample worker. First step order: PPT recognition → refresh rusty skills → fill gaps → statutory licence.</footer></main><main class="slide" data-n="5"><span class="tag eyebrow">Why us · 05</span><h1>What only<br><span>BijakMatch does.</span></h1>
+<div class="body" style="grid-template-rows:1fr auto">
+  <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;min-height:0">
+    <div class="box mintbg" style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center">
+      <div class="h" style="font-size:76px;line-height:1;color:var(--green)">01</div>
+      <div><div class="h" style="font-size:30px;line-height:1.05">Evidence beyond the CV</div><div style="font-size:18px;line-height:1.35;margin-top:6px;color:#1f2937">Certificates + daily work log + shift interview.</div></div></div>
+    <div class="box " style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center">
+      <div class="h" style="font-size:76px;line-height:1;color:var(--green)">02</div>
+      <div><div class="h" style="font-size:30px;line-height:1.05">Same data, same answer</div><div style="font-size:18px;line-height:1.35;margin-top:6px;color:#1f2937">Fixed rules on government open data. AI never decides.</div></div></div>
+    <div class="box " style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center">
+      <div class="h" style="font-size:76px;line-height:1;color:var(--green)">03</div>
+      <div><div class="h" style="font-size:30px;line-height:1.05">Market-aware choices</div><div style="font-size:18px;line-height:1.35;margin-top:6px;color:#1f2937">Stay, Evolve or Pivot, with job crowding shown.</div></div></div>
+    <div class="box mintbg" style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center">
+      <div class="h" style="font-size:76px;line-height:1;color:var(--green)">04</div>
+      <div><div class="h" style="font-size:30px;line-height:1.05">A plan that replans</div><div style="font-size:18px;line-height:1.35;margin-top:6px;color:#1f2937">Missed a week or changed your mind? One tap.</div></div></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:6px">
+    <span class="tag red">What others don't do</span>
+    <span class="chip">MyMAHIR: doesn't read your own certificates</span>
+    <span class="chip">MGTC Green Jobs: no match reasons, no crowding check</span>
+    <span class="chip">CV chatbots: can't read TVET skills, no sources</span>
+  </div>
+  <div class="banner" style="bottom:46px">Not another <span>CV tool.</span></div>
+</div>
+<footer>Comparison from the ReRole Green proposal's competitor review.</footer></main><main class="slide" data-n="6"><span class="tag eyebrow">How it works · 06</span><h1>AI reads and explains.<br><span>Rules decide.</span></h1>
+<div class="body" style="grid-template-rows:1fr auto;gap:12px">
+  <div style="display:grid;grid-template-columns:1fr 20px 1.3fr 20px 1.3fr 20px 1.15fr 20px .9fr;min-height:0">
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0"><span class="tag " style="justify-self:start">1 · Inputs</span><div style="display:grid;gap:10px;align-content:start;"><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Certificate upload</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">SVM / SKM, whitelist check</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Shift interview</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">voice or typed, BM + English</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Daily work log</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">evidence for PPT</div></div></div></div>
+    <div class="arrow">→</div>
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0"><span class="tag green" style="justify-self:start">2 · AI layer</span><div style="display:grid;gap:10px;align-content:start;"><div class="box mintbg" style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Whisper on RunPod GPU</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">speech-to-text</div></div><div class="box mintbg" style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Claude Opus 5.5 · GLM-5.3</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">asks the interview questions</div></div><div class="box mintbg" style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Task-card classifier (RunPod)</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">answer → NOSS task card</div></div><div class="box mintbg" style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">LiveKit voice agent</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">live skill check</div></div><div class="box mintbg" style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Claude + web search</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">state market report, with sources</div></div></div></div>
+    <div class="arrow">→</div>
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0"><span class="tag green" style="justify-self:start">3 · AI trend & market signals</span><div style="display:grid;gap:10px;align-content:start;"><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Anthropic Economic Index</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">observed AI use per task → moderate scenario</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">ILO GenAI Exposure Index</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">upper bound → accelerated scenario</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">OpenDOSM · MyMAHIR</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">jobs and wages by state</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">HRD Corp · MGTC Green Jobs</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">courses, fees, green roles</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Dated snapshots</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">release 2026-03, re-ranks on update</div></div></div></div>
+    <div class="arrow">→</div>
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0"><span class="tag " style="justify-self:start">4 · Rule engine</span><div style="display:grid;gap:10px;align-content:start;"><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Match score</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">overlap + demand + interest + ease (+ SDG)</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Window Score</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">demand − supply + pay premium</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Licence gates</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">Suruhanjaya Tenaga, GCPV</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Weekly scheduler</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">hours, budget, intakes</div></div><div style="font:800 10px Inter;text-transform:uppercase;letter-spacing:.08em">rules.v1.js · v1.0.0</div></div></div>
+    <div class="arrow">→</div>
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0"><span class="tag " style="justify-self:start">5 · Outputs</span><div style="display:grid;gap:10px;align-content:start;"><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Path cards</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">Stay · Evolve · Pivot</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Study calendar</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">.ics export</div></div><div class="box " style="padding:9px 10px"><div style="font:800 13.5px/1.2 Inter">Transition Card</div><div style="font-size:11.5px;line-height:1.25;color:#374151;margin-top:2px">first step in 4 weeks</div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink)">
+    <div style="padding:8px 12px;background:var(--mint);font-size:12px;line-height:1.35"><b>AI reads and explains:</b> listens, asks questions, sorts answers into task cards, researches the local market.</div>
+    <div style="padding:8px 12px;background:var(--ink);color:#fff;font-size:12px;line-height:1.35"><b>Rules decide:</b> scores, ranking, course order and schedule. AI output is schema-checked and limited to our whitelists.</div>
+  </div>
+</div>
+<footer>APIs: Anthropic API (Claude Opus 5.5) · RunPod serverless GPU (Whisper, task-card classifier, GLM-5.3) · LiveKit Cloud · certificate check uses our own rules, no AI. Data: Anthropic Economic Index, ILO, OpenDOSM, MyMAHIR, HRD Corp, MGTC.</footer></main><main class="slide" data-n="7"><span class="tag eyebrow">Who can use · 07</span><h1>Built for the worker.<br><span>Useful to the industry.</span></h1>
+<div class="body" style="grid-template-columns:1fr 1fr;gap:22px">
+  <div class="box top-tag mintbg" style="padding:24px 16px 14px;display:grid;grid-template-rows:auto auto 1fr;gap:10px;min-height:0">
+    <span class="tag green">TVET workers</span>
+    <div class="h" style="font-size:24px">A personal plan</div>
+    <ul class="lines"><li>See the skills they already have, including hidden ones</li><li>Compare Stay, Evolve and Pivot for their state</li><li>Get a plan that fits 4 hours a week</li></ul>
+    <img class="shot" src="../deck-images/proto-cards.png" alt="Prototype: path cards" style="height:100%;min-height:0">
+  </div>
+  <div class="box top-tag" style="padding:24px 16px 14px;display:grid;grid-template-rows:auto auto 1fr;gap:10px;min-height:0">
+    <span class="tag">TVET companies &amp; training providers</span>
+    <div class="h" style="font-size:24px">The market direction</div>
+    <ul class="lines"><li>Which roles are growing, which are crowded</li><li>Which skills to train next, by state</li><li><b>Next:</b> team skill-gap heatmap (employer view)</li></ul>
+    <img class="shot" src="../deck-images/proto-transition-card.png" alt="Prototype: competition and match panels" style="height:100%;min-height:0;object-position:left 60%">
+    <span class="tag red" style="position:absolute;top:-2px;right:12px;transform:translateY(-50%) rotate(2deg)">Employer view: next</span>
+  </div>
+  <div class="banner">One clear picture of <span>where jobs are going.</span></div>
+</div>
+<footer>The employer view is on the roadmap (proposal: future extension).</footer></main><main class="slide" data-n="8"><div style="grid-row:1/-1;margin:-38px -48px -26px;padding:44px 48px 30px;background:var(--ink);color:#fff;display:grid;grid-template-columns:1fr .9fr;gap:28px;min-height:0">
+  <div style="display:grid;grid-template-rows:auto 1fr auto;min-height:0">
+    <span class="tag green" style="justify-self:start">Close · 08</span>
+    <div style="align-self:center">
+      <div class="h" style="font-size:54px;line-height:1">We don't predict replacement.<br><span>We design the reshaping.</span></div>
+      <p style="font-size:16px;line-height:1.45;margin-top:18px;color:#D1D5DB">First certify what he knows. Then fill the gap. Then invest where the window is longest.</p>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center"><div class="h" style="font-size:22px">KMJDIHATIKU</div><span style="font-size:12px;color:#9CA3AF">[contact] · [demo link / QR]</span></div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr auto;gap:14px;min-height:0">
+    <img class="shot" src="../deck-images/proto-transition-card.png" alt="Prototype: Career Transition Card" style="height:100%;min-height:0;border-color:#fff">
+    <div style="display:grid;gap:6px">
+      <span class="tag green" style="justify-self:start">Next</span>
+      <div style="font-size:13px;line-height:1.5">[Pilot with a TVET provider] · [More green slices: water, waste] · [Bahasa Malaysia and Chinese UI]</div>
+    </div>
+  </div>
+</div></main>
+</div>
+<div class="hud"><b id="pg">1</b> / 8 · ← → to move · F for full screen</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;const stage=document.getElementById('stage');
+function fit(){const k=Math.min(innerWidth/1280,(innerHeight-24)/720);stage.style.transform='translate(-50%,-50%) scale('+k+')';}
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,j)=>s.classList.toggle('on',j===i));document.getElementById('pg').textContent=i+1;history.replaceState(null,'','#'+(i+1));}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))show(i+1);else if(['ArrowLeft','PageUp'].includes(e.key))show(i-1);else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}});
+stage.addEventListener('click',()=>show(i+1));
+fit();show((parseInt(location.hash.slice(1))||1)-1);
+</script></body></html>
