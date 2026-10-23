@@ -5,7 +5,7 @@
    ========================================================================== */
 let route = null;
 
-const PAGE_TITLES = { story: "Same hands, new work", home: "Your overview", start: "Get started", profile: "Tell us about yourself", skills: "Show what you do at work", impact: "How AI Can Affect Your World", paths: "Choose your path", courses: "Courses for your plan", plan: "Your plan" };
+const PAGE_TITLES = { demo: "Product demo", story: "Same hands, new work", home: "Your overview", start: "Get started", profile: "Tell us about yourself", skills: "Show what you do at work", impact: "How AI Can Affect Your World", paths: "Choose your path", courses: "Courses for your plan", plan: "Your plan" };
 
 function go() {
   stopMic();
@@ -391,6 +391,14 @@ view.addEventListener("click", e => {
     const eng = runEngine(target());
     rerender();
     toast(`1 week added. Completion adjusted to Month ${eng ? eng.totalMonths : 6}.`);
+  } else if (a === "demo-pick") {
+    S.path = v;
+    S.sel = v;
+    rerender();
+    toast(`${D.PATHS[v].name} chosen. Schedule rebuilt.`);
+  } else if (a === "demo-reset") {
+    S.missedWeeks = 0;
+    rerender();
   } else if (a === "trigger-demo-update") {
     S.updateProposed = {
       releaseTag: "Release v2.0 (Mar 2026)",

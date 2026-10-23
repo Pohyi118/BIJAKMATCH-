@@ -4,6 +4,7 @@
    8. WHY PANEL & DATA SOURCES
    ========================================================================== */
 const WHY = {
+  demo: () => ["Guided demo", "A walkthrough of the four ideas behind BijakMatch, run on the sample worker with the same engine as the rest of the app.", [["Scoring", "Fixed rules in shared/rules.v1.js", "real", "Deterministic"], ["Market data", "MyMAHIR and DOSM quarterly tables", "real", "Govt Data"]], ["Start with the interview", "skills"]],
   story: () => ["Malaysian Green Economy Visual Narrative", "Explaining how industrial workers transition into clean energy roles using verified prior skills without tuition debt.", [["Framework", "National Energy Transition Roadmap (NETR)", "real", "Govt Policy"], ["Automation", "ILO & Anthropic Economic Index", "real", "Observed Data"]], ["Start Shift Interview", "skills"]],
   home: () => ["Your Green Pathway at a Glance", "Real-time overview of your learning pace, market releases, and transition status.", [["Release Status", S.dataRelease, "real", "Active Release"], ["Engine", "Unified weekly budget & time simulation", "projection", "Projection"]], ["Open my plan", "plan"]],
   profile: () => ["Why We Ask", "Your current role maps to Malaysian NOSS competencies. Your hours and monthly budget define what is achievable without debt.", [["Certificates", "Malaysian Whitelist (SKM, Suruhanjaya Tenaga, HRD Corp)", "real", "Official Whitelist"]], ["Next: Skills", "skills"]],
@@ -63,6 +64,7 @@ function closeWhyDrawer() {
    9. SHELL, NAVIGATION, & LANDSCAPE
    ========================================================================== */
 const NAV_ITEMS = [
+  { id: "demo", label: "Demo tour", icon: "compass" },
   { id: "home", label: "Home", icon: "home" },
   { id: "profile", label: "My Profile", icon: "profile" },
   { id: "skills", label: "Show Your Skills", icon: "skills" },
