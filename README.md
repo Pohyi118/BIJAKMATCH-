@@ -1,7 +1,7 @@
 
 
 # BijakMatch (ReRole Green)
-
+###demo video>>>>>https://youtu.be/FhtJeDIaVGY?si=MZaVRwNVeBQjQ5JJ###
 > An AI career navigator that turns what a Malaysian TVET worker already does on shift into verified skills, a fair ranking of Stay / Evolve / Pivot green-career paths, and a plan that fits their hours and budget.
 
 ---
@@ -26,7 +26,7 @@
 | Live Demo         | https://bijakmatch.vercel.app (guided tour: [`#demo`](https://bijakmatch.vercel.app/#demo)) |
 | RunPod Endpoint   | Private (the endpoint ID is kept in `.env`; setup steps below) |
 | Slide Deck        | [`docs/deck/BijakMatch-pitch-deck.pdf`](docs/deck/BijakMatch-pitch-deck.pdf) ([HTML version](docs/deck/deck.html), [content plan](docs/PITCH_DECK.md)) |
-| Demo Video        | [`docs/demo/bijakmatch-demo.mp4`](docs/demo/bijakmatch-demo.mp4) (3 min, narrated walkthrough) |
+| Demo Video        | [https://youtu.be/FhtJeDIaVGY?si=MZaVRwNVeBQjQ5JJ]()  |
 
 ---
 
