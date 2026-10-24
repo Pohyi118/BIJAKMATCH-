@@ -45,10 +45,8 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 - **AI shift interview** — Claude interviews the worker, extracts skills from their own words and checks them live over a voice call.
 - **Three-track skill profile** — certificates plus interview evidence become Verified, Hidden and Rusty skills.
 - **Transparent match score** — Task Overlap, Market Demand, Interest and Ease of Move, plus an SDG bonus. Age, gender and background are not inputs. Weights live in one versioned file.
-- **Honest affordability** — a 24-month weekly simulation flags licences the worker cannot yet afford and lists subsidy options (HRD Corp, PERKESO EIS, PTPK).
 - **Market analysis** — cited web research per state; without a key the app shows clearly labelled sample figures. Applicants per open role are shown next to each path so workers can see how crowded a field is (shown today, not yet part of the score).
 - **Plan that replans** — courses are placed in a weekly calendar that fits the worker's hours and budget. Missing a week or switching path rebuilds the schedule, and the plan exports to `.ics`.
-- **Guided demo tour** — `#demo` walks through evidence beyond the CV, rule-based scoring on open data, Stay / Evolve / Pivot, and the adaptive calendar, all computed live from the same engine.
 
 ### Tech Stack
 
