@@ -16,12 +16,12 @@
 
 | Field                  | Details                                     |
 | ---------------------- | ------------------------------------------- |
-| **Team Name**          | TODO: team name                             |
-| **Team Domain**        | Domain 1                                    |
-| **SDG Track (1–17)**   | TODO: confirm track (the app tags SDG 4, 7 and 8) |
-| **Team Leader**        | TODO                                        |
-| **University**         | TODO                                        |
-| **Number of Members**  | TODO                                        |
+| **Team Name**          | KMJDIHATIKU                                 |
+| **Team Domain**        | Domain 1: The Aiversecity Future-Ready Workforce |
+| **SDG Track (1–17)**   | SDG 4 (main), also SDG 8; the app also tags SDG 7 and 9 |
+| **Team Leader**        | Chong Poh Yi                                |
+| **University**         | University Malaya                           |
+| **Number of Members**  | 2                                           |
 
 ## Links
 
@@ -29,10 +29,10 @@
 | ----------------- | ---------------------------------------------- |
 | GitHub Repository | https://github.com/Pohyi118/BIJAKMATCH-        |
 | Replit Project    | TODO                                           |
-| Live Demo         | TODO                                           |
-| RunPod Endpoint   | TODO (created from your RunPod account, see below) |
-| Slide Deck        | TODO                                           |
-| Demo Video        | TODO                                           |
+| Live Demo         | https://bijakmatch.vercel.app (guided tour: [`#demo`](https://bijakmatch.vercel.app/#demo)) |
+| RunPod Endpoint   | Private (the endpoint ID is kept in `.env`; setup steps below) |
+| Slide Deck        | [`docs/deck/BijakMatch-pitch-deck.pdf`](docs/deck/BijakMatch-pitch-deck.pdf) ([HTML version](docs/deck/deck.html), [content plan](docs/PITCH_DECK.md)) |
+| Demo Video        | [`docs/demo/bijakmatch-demo.mp4`](docs/demo/bijakmatch-demo.mp4) (3 min, narrated walkthrough) |
 
 ---
 
@@ -52,7 +52,9 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 - **Three-track skill profile** — certificates plus interview evidence become Verified, Hidden and Rusty skills.
 - **Transparent match score** — Task Overlap, Market Demand, Interest and Ease of Move, plus an SDG bonus. Age, gender and background are not inputs. Weights live in one versioned file.
 - **Honest affordability** — a 24-month weekly simulation flags licences the worker cannot yet afford and lists subsidy options (HRD Corp, PERKESO EIS, PTPK).
-- **Market analysis** — cited web research per state; without a key the app shows clearly labelled sample figures.
+- **Market analysis** — cited web research per state; without a key the app shows clearly labelled sample figures. Applicants per open role are shown next to each path so workers can see how crowded a field is (shown today, not yet part of the score).
+- **Plan that replans** — courses are placed in a weekly calendar that fits the worker's hours and budget. Missing a week or switching path rebuilds the schedule, and the plan exports to `.ics`.
+- **Guided demo tour** — `#demo` walks through evidence beyond the CV, rule-based scoring on open data, Stay / Evolve / Pivot, and the adaptive calendar, all computed live from the same engine.
 
 ### Tech Stack
 
@@ -62,7 +64,7 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 | Backend       | Node.js (`node:http`), Zod (`src/server`)               |
 | Database      | None; worker state stays in the browser (localStorage)  |
 | AI / Compute  | Anthropic Claude API, LiveKit Cloud voice agent (Deepgram STT, Cartesia TTS) |
-| Hosting / Dev | Replit (run config in `.replit`); RunPod: GPU speech-to-text, GLM-5.3, model training |
+| Hosting / Dev | Vercel (static web app); Replit (development environment, run config in `.replit`); RunPod: GPU speech-to-text, GLM-5.3, model training |
 
 ---
 
@@ -70,36 +72,50 @@ Bijak, an AI interviewer, talks to the worker about a real shift (typed or spoke
 
 ```
 .
-├── docs/                    # Specifications, design notes, archived prototypes
+├── .github/workflows/pages.yml  # Publishes the static site and pitch deck to the gh-pages branch
+├── docs/                    # Specifications, pitch deck, demo video
 │   ├── PAGE_BY_PAGE.md          # Pages, flow and gate as shipped
 │   ├── TECHNICAL_SPECIFICATION.md
 │   ├── SOLUTION.md
+│   ├── PROPOSAL_EN.md           # English translation of the ReRole Green proposal
+│   ├── PITCH_DECK.md            # Slide-by-slide content plan
+│   ├── deck/                    # Pitch deck (deck.html, BijakMatch-pitch-deck.pdf)
+│   ├── deck-images/             # Screenshots and clippings used in the deck
+│   ├── demo/                    # 3-minute demo video
 │   ├── design-system/           # Design tokens
-│   └── archive/                 # Earlier vision doc and prototypes
+│   └── runpod-proof/            # Evidence of live RunPod use
 ├── runpod/
 │   ├── handler.py           # RunPod serverless handler: Whisper speech-to-text and task-card classify
 │   ├── train/               # Task-card classifier training for a RunPod Pod (export_dataset.mjs, train.py, data/, out/)
 │   ├── Dockerfile           # Worker image for the endpoint
 │   └── requirements.txt     # Worker dependencies
+├── scripts/
+│   ├── build_site.mjs       # Assembles the static site into _site/ (used by Vercel and GitHub Pages)
+│   └── runpod_proof.mjs     # Calls RunPod live and saves proof of use
 ├── src/
-│   ├── site/                # Web app (index.html, app-*.js, shared/ scoring rules)
+│   ├── site/                # Web app (index.html, app-*.js, shared/ scoring rules, app-views-demo.js = demo tour)
 │   ├── server/              # Node API: interview, market, certificate check, LiveKit token
 │   └── agent/               # LiveKit voice agent for the live skill check
 ├── submission/              # Required submission documents
-│   ├── SDC2026_TeamName_Preliminary.pdf      # Preliminary submission
-│   ├── SDC2026_TeamName_TechDeclaration.pdf  # Technology declaration
-│   ├── SDC2026_TeamName_Replit_POU.pdf       # Replit proof of use
-│   └── SDC2026_TeamName_Runpod_POU.pdf       # RunPod proof of use
+│   ├── SDC2026_KMJDIHATIKU_Preliminary.pdf      # Preliminary submission (filled)
+│   ├── SDC2026_KMJDIHATIKU_TechDeclaration.pdf  # Technology declaration (filled)
+│   ├── SDC2026_TeamName_Replit_POU.pdf          # Replit proof of use (to complete, then rename to KMJDIHATIKU)
+│   └── SDC2026_TeamName_Runpod_POU.pdf          # RunPod proof of use (to complete, then rename to KMJDIHATIKU)
 ├── tests/
 │   ├── scoring.test.mjs     # Scoring regression tests
+│   ├── backend.test.mjs     # Backend end-to-end tests (all routes, fallbacks, bad input)
 │   ├── runpod.test.mjs      # RunPod speech client tests (fake network)
-│   └── runpodllm.test.mjs   # GLM-5.3 client tests (fake network)
+│   ├── runpodllm.test.mjs   # GLM-5.3 client tests (fake network)
+│   ├── test_handler.py      # RunPod handler tests
+│   └── legacy-computePathMatch.js  # Old scoring function, kept to prove the new one matches it
 ├── .env.example             # Example environment variables
 ├── .gitignore
 ├── .replit                  # Replit run configuration
+├── .vercelignore            # Files Vercel does not upload
 ├── LICENSE
-├── package.json             # npm start / npm test
+├── package.json             # npm start / build / test / proof / agent
 ├── requirements.txt         # Python dependencies (RunPod handler)
+├── vercel.json              # Vercel build: npm run build, serve _site
 └── README.md
 ```
 
@@ -147,7 +163,11 @@ npm start
 npm run agent
 ```
 
-Needs Node.js 20 or newer. Open `http://localhost:5050/index.html`.
+Needs Node.js 20 or newer. Open `http://localhost:5050/index.html`, or `http://localhost:5050/index.html#demo` for the guided tour.
+
+### Deploy the static site
+
+`npm run build` assembles `src/site` (plus the deck and demo video under `/docs/`) into `_site/`. Vercel runs it using `vercel.json`, and `.github/workflows/pages.yml` publishes the same folder to the `gh-pages` branch. The static site has no Node server behind it, so on the hosted version the AI features use their offline fallbacks; run the Node server (above) to use Claude, GLM-5.3, RunPod and LiveKit.
 
 ### Run Tests
 
@@ -159,9 +179,9 @@ npm test
 
 ## How We Use Replit *(Required)*
 
-TODO: describe how the team used Replit (development, hosting, secrets). Only write what the team actually did.
+Replit was used as a development environment: writing and running the code during the hackathon. It was not used to host the deployed prototype (that runs on Vercel). The `.replit` file lets anyone import the repository and run the Node server there.
 
-📄 Proof of use: [`submission/SDC2026_TeamName_Replit_POU.pdf`](submission/SDC2026_TeamName_Replit_POU.pdf)
+📄 Proof of use: [`submission/SDC2026_TeamName_Replit_POU.pdf`](submission/SDC2026_TeamName_Replit_POU.pdf) (rename to `KMJDIHATIKU` when completed)
 
 ## How We Use RunPod *(Required)*
 
@@ -206,9 +226,9 @@ python runpod/train/train.py --out /runpod-volume/models/taskcards
 
 **Proof of use:** `npm run proof` calls RunPod live and saves a timestamped record (request ids, token usage, timings) in [`docs/runpod-proof/`](docs/runpod-proof/README.md); the same folder holds the console screenshots and the training log. It writes nothing unless a real call succeeds.
 
-**Honest status:** the dataset is 85 answers (67 train, 18 validation): the scripted interviews plus hand-written English and Bahasa Malaysia lines. On those 18 validation answers the existing keyword matcher scores micro-F1 0.57. That number only shows the pipeline works; real accuracy needs real, consented worker answers. The classifier is not wired into scoring yet. A natural use is a deterministic cross-check on the interview model's task extraction. The training script has not been run on a GPU yet, and the speech endpoint and GLM path have been tested only against a fake server.
+**Status:** all three uses have been run on RunPod: the speech-to-text endpoint, the GLM-5.3 interview path (a live call is recorded in [`docs/runpod-proof/`](docs/runpod-proof/README.md)), and the classifier training on a Pod. The dataset is 85 answers (67 train, 18 validation): the scripted interviews plus hand-written English and Bahasa Malaysia lines. With so few examples the validation score only shows the pipeline works; real accuracy needs real, consented worker answers. The classifier is not wired into scoring yet. A natural use is a deterministic cross-check on the interview model's task extraction.
 
-📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
+📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf) (rename to `KMJDIHATIKU` when completed)
 
 ---
 
@@ -227,6 +247,8 @@ python runpod/train/train.py --out /runpod-volume/models/taskcards
 
 ## Future Improvements
 
+- [ ] Turn market crowding (applicants per open role) from a display into a scored rule
+- [ ] Employer / training-provider view: market direction and team skill-gap heatmap
 - [ ] Deterministic filter for unstable job news and announcements (design agreed, not built)
 - [ ] Fairness checks: input allowlist and gender counterfactual tests in CI
 - [ ] Server-side `/api/score` and an audit log
@@ -237,22 +259,23 @@ python runpod/train/train.py --out /runpod-volume/models/taskcards
 
 | Name        | Role                | GitHub                                   |
 | ----------- | ------------------- | ---------------------------------------- |
-| TODO        | TODO                | TODO                                     |
+| Chong Poh Yi | Team leader        | [@Pohyi118](https://github.com/Pohyi118) |
+| Lee Jia Yi  | Presenter           | TODO                                     |
 
 ---
 
 ## Submission Checklist
 
-- [ ] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
-- [ ] Slide deck link added
-- [ ] Demo video link added
+- [x] Team name, domain (Domain 1) and SDG track filled in
+- [x] Slide deck link added
+- [x] Demo video link added
 - [ ] Replit used, with proof of use in `submission/`
 - [ ] RunPod used, with proof of use in `submission/`
-- [ ] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
-- [ ] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
-- [ ] Submission files renamed with your team name (replace `TeamName`)
+- [x] Preliminary submission completed (`SDC2026_KMJDIHATIKU_Preliminary.pdf`)
+- [x] Technology declaration completed (`SDC2026_KMJDIHATIKU_TechDeclaration.pdf`)
+- [ ] Proof-of-use files renamed with the team name (replace `TeamName`)
 - [ ] "How to Run" steps verified
-- [ ] No API keys or secrets committed to the repository
+- [x] No API keys or secrets committed to the repository
 
 ## License
 
