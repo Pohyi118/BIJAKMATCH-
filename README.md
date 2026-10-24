@@ -6,7 +6,7 @@
 
 ---
 
-# BijakMatch (ReRole Green)
+# BijakMatch
 
 > An AI career navigator that turns what a Malaysian TVET worker already does on shift into verified skills, a fair ranking of Stay / Evolve / Pivot green-career paths, and a plan that fits their hours and budget.
 
@@ -16,10 +16,10 @@
 
 | Field                  | Details                                     |
 | ---------------------- | ------------------------------------------- |
-| **Team Name**          | TODO: team name                             |
+| **Team Name**          | KMJDIHATIKU                                 |
 | **Team Domain**        | Domain 1                                    |
-| **SDG Track (1–17)**   | TODO: confirm track (the app tags SDG 4, 7 and 8) |
-| **Team Leader**        | TODO                                        |
+| **SDG Track (1–17)**   | SDG 4, 7 and 8                              |
+| **Team Leader**        | CHONG POHYI                                 |
 | **University**         | TODO                                        |
 | **Number of Members**  | TODO                                        |
 
@@ -29,9 +29,8 @@
 | ----------------- | ---------------------------------------------- |
 | GitHub Repository | https://github.com/Pohyi118/BIJAKMATCH-        |
 | Replit Project    | TODO                                           |
-| Live Demo         | TODO                                           |
-| RunPod Endpoint   | TODO (created from your RunPod account, see below) |
-| Slide Deck        | TODO                                           |
+| Live Demo         | https://bijakmatch-7zf6whjlp-lastminutescode.vercel.app/#story                                     |
+| Slide Deck        | https://canva.link/odylcgj0ukcly77             |
 | Demo Video        | TODO                                           |
 
 ---
@@ -237,7 +236,7 @@ python runpod/train/train.py --out /runpod-volume/models/taskcards
 
 | Name        | Role                | GitHub                                   |
 | ----------- | ------------------- | ---------------------------------------- |
-| TODO        | TODO                | TODO                                     |
+| LEE JIA YI  | Presenter            
 
 ---
 
