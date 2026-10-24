@@ -22,7 +22,6 @@
 | Resource          | Link                                           |
 | ----------------- | ---------------------------------------------- |
 | GitHub Repository | https://github.com/Pohyi118/BIJAKMATCH-        |
-| Replit Project    | TODO                                           |
 | Live Demo         | https://bijakmatch.vercel.app (guided tour: [`#demo`](https://bijakmatch.vercel.app/#demo)) |
 | RunPod Endpoint   | Private (the endpoint ID is kept in `.env`; setup steps below) |
 | Slide Deck        | [`docs/deck/BijakMatch-pitch-deck.pdf`](docs/deck/BijakMatch-pitch-deck.pdf) ([HTML version](docs/deck/deck.html), [content plan](docs/PITCH_DECK.md)) |
